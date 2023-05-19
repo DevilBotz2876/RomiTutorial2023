@@ -174,3 +174,7 @@ out/
 # START: Setup gversion
 src/main/java/frc/robot/BuildConstants.java
 # END: Setup gversion
+
+# START: Setup AdvantageKit
+*.wpilog
+# END: Setup AdvantageKit

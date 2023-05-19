@@ -4,9 +4,16 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+// START: Setup AdvantageKit
+import org.littletonrobotics.junction.LogFileUtil;
+import org.littletonrobotics.junction.LoggedRobot;
+import org.littletonrobotics.junction.Logger;
+import org.littletonrobotics.junction.networktables.NT4Publisher;
+import org.littletonrobotics.junction.wpilog.WPILOGReader;
+import org.littletonrobotics.junction.wpilog.WPILOGWriter;
+// END: Setup AdvantageKit
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -14,7 +21,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  * the package after creating this project, you must also update the build.gradle file in the
  * project.
  */
-public class Robot extends TimedRobot {
+public class Robot extends LoggedRobot {
   private Command m_autonomousCommand;
   private RobotContainer m_robotContainer;
 
@@ -24,6 +31,55 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+    // START: Setup AdvantageKit
+    Logger logger = Logger.getInstance();
+
+    // Record build metadata
+    logger.recordMetadata("ProjectName", BuildConstants.MAVEN_NAME);
+    logger.recordMetadata("BuildDate", BuildConstants.BUILD_DATE);
+    logger.recordMetadata("GitSHA", BuildConstants.GIT_SHA);
+    logger.recordMetadata("GitDate", BuildConstants.GIT_DATE);
+    logger.recordMetadata("GitBranch", BuildConstants.GIT_BRANCH);
+    switch (BuildConstants.DIRTY) {
+      case 0:
+        logger.recordMetadata("GitDirty", "All changes committed");
+        break;
+      case 1:
+        logger.recordMetadata("GitDirty", "Uncomitted changes");
+        break;
+      default:
+        logger.recordMetadata("GitDirty", "Unknown");
+        break;
+    }
+
+    /* Initialize AdvantageKit Logging */
+    // Set up data receivers & replay source
+    if (Constants.AdvantageKit.REPLAY_MODE) {
+      // Running in replay mode
+      setUseTiming(false); // Run as fast as possible
+      String logPath =
+          LogFileUtil
+              .findReplayLog(); // Pull the replay log from AdvantageScope (or prompt the user)
+      logger.setReplaySource(new WPILOGReader(logPath)); // Read replay log
+      logger.addDataReceiver(
+          new WPILOGWriter(
+              LogFileUtil.addPathSuffix(logPath, "_sim"))); // Save outputs to a new log
+    } else {
+      if (isReal()) {
+        // Running on real robot
+        logger.addDataReceiver(new WPILOGWriter("/media/sda1/")); // Log to a USB stick
+        logger.addDataReceiver(new NT4Publisher()); // Publish data to NetworkTables
+      } else {
+        // Running in simulation
+        logger.addDataReceiver(new WPILOGWriter(""));
+        logger.addDataReceiver(new NT4Publisher());
+      }
+    }
+
+    logger.start(); // Start logging! No more data receivers, replay sources, or metadata values may
+    // be added.
+    // END: Setup AdvantageKit
+
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();

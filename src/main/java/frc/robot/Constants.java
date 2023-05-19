@@ -12,4 +12,11 @@ package frc.robot;
  * <p>It is advised to statically import this class (or one of its inner classes) wherever the
  * constants are needed, to reduce verbosity.
  */
-public final class Constants {}
+public final class Constants {
+  // START: Setup AdvantageKit
+  public final class AdvantageKit {
+    /** Set to true if you want to replay an existing AdvantageKit log back in simulation */
+    static final boolean REPLAY_MODE = false;
+  }
+  // END: Setup AdvantageKit
+}
