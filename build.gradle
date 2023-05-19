@@ -1,6 +1,9 @@
 plugins {
     id "java"
     id "edu.wpi.first.GradleRIO" version "2023.4.2"
+// START: Setup spotless
+    id 'com.diffplug.spotless' version '6.18.0'
+// END: Setup spotless
 }
 
 sourceCompatibility = JavaVersion.VERSION_11
@@ -60,3 +63,55 @@ wpi.java.configureTestTasks(test)
 tasks.withType(JavaCompile) {
     options.compilerArgs.add '-XDstringConcat=inline'
 }
+
+// START: Setup spotless
+spotless {
+   java {
+      target fileTree('.') {
+            include '**/*.java'
+            exclude '**/build/**', '**/build-*/**'
+      }
+      toggleOffOn()
+      googleJavaFormat()
+      removeUnusedImports()
+      trimTrailingWhitespace()
+      endWithNewline()
+   }
+   groovyGradle {
+      target fileTree('.') {
+            include '**/*.gradle'
+            exclude '**/build/**', '**/build-*/**'
+      }
+      greclipse()
+      indentWithSpaces(4)
+      trimTrailingWhitespace()
+      endWithNewline()
+   }
+   format 'xml', {
+      target fileTree('.') {
+            include '**/*.xml'
+            exclude '**/build/**', '**/build-*/**'
+      }
+      eclipseWtp('xml')
+      trimTrailingWhitespace()
+      indentWithSpaces(2)
+      endWithNewline()
+   }
+   format 'misc', {
+      target fileTree('.') {
+            include '**/*.md', '**/.gitignore'
+            exclude '**/build/**', '**/build-*/**'
+      }
+      trimTrailingWhitespace()
+      indentWithSpaces(2)
+      endWithNewline()
+   }
+}
+
+if (!('spotlessCheck' in gradle.startParameter.taskNames)) {
+    spotlessJavaCheck.enabled = false
+    spotlessGroovyGradleCheck.enabled = false
+    spotlessXmlCheck.enabled = false
+    spotlessMiscCheck.enabled = false
+}
+// START: Setup spotless
