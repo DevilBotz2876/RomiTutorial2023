@@ -4,6 +4,10 @@ plugins {
     // START: Setup spotless
     id 'com.diffplug.spotless' version '6.18.0'
     // END: Setup spotless
+
+    // START: Setup gversion
+    id "com.peterabeles.gversion" version "1.10.2"
+    // END: Setup gversion
 }
 
 sourceCompatibility = JavaVersion.VERSION_11
@@ -119,3 +123,15 @@ if (!('spotlessCheck' in gradle.startParameter.taskNames)) {
     spotlessMiscCheck.enabled = false
 }
 // START: Setup spotless
+
+// START: Setup gversion
+project.compileJava.dependsOn(createVersionFile)
+gversion {
+    srcDir       = "src/main/java/"
+    classPackage = "frc.robot"
+    className    = "BuildConstants"
+    dateFormat   = "yyyy-MM-dd HH:mm:ss z"
+    timeZone     = "America/New_York" // Use preferred time zone
+    indent       = " "
+}
+// END: Setup gversion
