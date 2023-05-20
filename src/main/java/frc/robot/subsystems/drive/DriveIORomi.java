@@ -66,6 +66,9 @@ public class DriveIORomi implements DriveIO {
 
     inputs.leftAppliedVoltage = m_leftMotor.get() * RobotController.getBatteryVoltage();
     inputs.leftAppliedVoltage = m_rightMotor.get() * RobotController.getBatteryVoltage();
+
+    inputs.leftVelocityRadPerSec = m_leftEncoder.getRate();
+    inputs.rightVelocityRadPerSec = m_rightEncoder.getRate();
   }
 
   @Override
