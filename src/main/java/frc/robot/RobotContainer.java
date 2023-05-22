@@ -13,11 +13,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.SysId;
 import frc.robot.commands.ArcadeDrive;
 import frc.robot.commands.AutonomousDistance;
 import frc.robot.commands.AutonomousTime;
+import frc.robot.commands.DriveVision;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.OnBoardIO;
 import frc.robot.subsystems.OnBoardIO.ChannelMode;
@@ -89,6 +91,11 @@ public class RobotContainer {
     // END: Setup pathplanner
 
     SmartDashboard.putData(m_chooser);
+
+    // START: Setup photonvision
+    Trigger xButton = new JoystickButton(m_controller, XboxController.Button.kX.value);
+    xButton.whileTrue(new DriveVision(m_drivetrain));
+    // END: Setup photonvision
   }
 
   /**
