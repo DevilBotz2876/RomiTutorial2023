@@ -4,6 +4,9 @@
 
 package frc.robot;
 
+import com.pathplanner.lib.PathConstraints;
+import com.pathplanner.lib.PathPlanner;
+import com.pathplanner.lib.PathPlannerTrajectory;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -11,6 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.Constants.SysId;
 import frc.robot.commands.ArcadeDrive;
 import frc.robot.commands.AutonomousDistance;
 import frc.robot.commands.AutonomousTime;
@@ -73,6 +77,17 @@ public class RobotContainer {
     // Setup SmartDashboard options
     m_chooser.setDefaultOption("Auto Routine Distance", new AutonomousDistance(m_drivetrain));
     m_chooser.addOption("Auto Routine Time", new AutonomousTime(m_drivetrain));
+
+    // START: Setup pathplanner
+    PathPlannerTrajectory traj =
+        PathPlanner.loadPath(
+            "Test Path",
+            new PathConstraints(
+                SysId.Drive.maxSpeedMetersPerSecond, SysId.Drive.maxSpeedMetersPerSecond / 2));
+    m_chooser.addOption(
+        "Auto Routine Test Path", m_drivetrain.followTrajectoryCommand(traj, true, false));
+    // END: Setup pathplanner
+
     SmartDashboard.putData(m_chooser);
   }
 

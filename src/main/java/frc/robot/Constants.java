@@ -45,6 +45,8 @@ public final class Constants {
       public static final double rightKpVelocity = 0.78136;
       public static final double rightKiVelocity = 0;
       public static final double rightKdVelocity = 0;
+
+      public static final double trackWidthMeters = 0.14692;
     }
     // END: Setup SysId
   }

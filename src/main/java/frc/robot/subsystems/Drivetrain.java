@@ -4,10 +4,14 @@
 
 package frc.robot.subsystems;
 
+import com.pathplanner.lib.PathPlannerTrajectory;
+import com.pathplanner.lib.commands.PPRamseteCommand;
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.RamseteController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.math.util.Units;
@@ -15,6 +19,9 @@ import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.SysId;
 import frc.robot.subsystems.drive.DriveIO;
@@ -52,6 +59,12 @@ public class Drivetrain extends SubsystemBase {
   private Field2d field = new Field2d();
   // END: Setup Odometry
 
+  // START: Setup PathPlanner
+  DifferentialDriveKinematics kinematics =
+      new DifferentialDriveKinematics(SysId.Drive.trackWidthMeters);
+  private SimpleMotorFeedforward combinedFeedforward;
+  // END: Setup PathPlanner
+
   /** Creates a new Drivetrain. */
   public Drivetrain(DriveIO io) {
     this.io = io;
@@ -79,6 +92,14 @@ public class Drivetrain extends SubsystemBase {
     // START: Setup Odometry
     SmartDashboard.putData("Field", field);
     // END: Setup Odometry
+
+    // START: Setup pathplanner
+    combinedFeedforward =
+        new SimpleMotorFeedforward(
+            SysId.Drive.combinedksVolts,
+            SysId.Drive.combinedkvVoltSecondsPerMeter,
+            SysId.Drive.combinedkaVoltSecondsSquaredPerMeter);
+    // END: Setup pathplanner
   }
 
   public void arcadeDriveOpenLoop(double xaxisSpeed, double zaxisRotate) {
@@ -247,4 +268,61 @@ public class Drivetrain extends SubsystemBase {
     return new Rotation2d(-inputs.zRotationInRads);
   }
   // END: Setup Odometry
+
+  // START: Setup pathplanner
+  /**
+   * Resets the odometry to the specified pose.
+   *
+   * @param pose The pose to which to set the odometry.
+   */
+  public void resetOdometry(Pose2d pose) {
+    resetEncoders();
+    odometry.resetPosition(getRotation(), getLeftPositionMeters(), getRightPositionMeters(), pose);
+  }
+
+  /** Returns the current odometry pose in meters. */
+  public Pose2d getPose() {
+    return odometry.getPoseMeters();
+  }
+
+  public DifferentialDriveWheelSpeeds getWheelSpeeds() {
+    return new DifferentialDriveWheelSpeeds(getLeftVelocityMeters(), getRightVelocityMeters());
+  }
+
+  public void setDriveVoltage(double leftVolts, double rightVolts) {
+    io.setDriveVoltage(leftVolts, rightVolts);
+  }
+
+  // Assuming this method is part of a drivetrain subsystem that provides the necessary methods
+  public Command followTrajectoryCommand(
+      PathPlannerTrajectory traj, boolean isFirstPath, boolean useAllianceColor) {
+    return new SequentialCommandGroup(
+        new InstantCommand(
+            () -> {
+              // Reset odometry for the first path you run during auto
+              leftVelocityPid.reset();
+              rightVelocityPid.reset();
+
+              if (isFirstPath) {
+                this.resetOdometry(traj.getInitialPose());
+              }
+            }),
+        new PPRamseteCommand(
+            traj,
+            this::getPose, // Pose supplier
+            new RamseteController(),
+            combinedFeedforward,
+            this.kinematics, // DifferentialDriveKinematics
+            this::getWheelSpeeds, // DifferentialDriveWheelSpeeds supplier
+            leftVelocityPid, // Left controller. Tune these values for your robot. Leaving them 0
+            // will only use feedforwards.
+            rightVelocityPid, // Right controller (usually the same values as left controller)
+            this::setDriveVoltage, // Voltage biconsumer
+            useAllianceColor, // Should the path be automatically mirrored depending on alliance
+            // color.
+            // Optional, defaults to true
+            this // Requires this drive subsystem
+            ));
+  }
+  // END: Setup pathplanner
 }
