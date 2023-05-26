@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.RobotController;
@@ -31,6 +32,11 @@ public class Drivetrain extends SubsystemBase {
   private SimpleMotorFeedforward rightFeedforward;
   // END: Setup Feedforward
 
+  // START: Setup PID Control feedback loop
+  private PIDController leftVelocityPid;
+  private PIDController rightVelocityPid;
+  // END: Setup PID Control feedback loop
+
   /**
    * Creates a new Drivetrain.
    *
@@ -51,6 +57,15 @@ public class Drivetrain extends SubsystemBase {
             SysId.Drive.rightKvVoltSecondsPerMeter,
             SysId.Drive.rightKaVoltSecondsSquaredPerMeter);
     // END: Setup Feedforward
+
+    // START: Setup PID Control feedback loop
+    leftVelocityPid =
+        new PIDController(
+            SysId.Drive.leftKpVelocity, SysId.Drive.leftKiVelocity, SysId.Drive.leftKdVelocity);
+    rightVelocityPid =
+        new PIDController(
+            SysId.Drive.rightKpVelocity, SysId.Drive.rightKiVelocity, SysId.Drive.rightKdVelocity);
+    // END: Setup PID Control feedback loop
   }
 
   /**
@@ -86,6 +101,27 @@ public class Drivetrain extends SubsystemBase {
         rightFeedforward.calculate(wheelSpeeds.right * SysId.Drive.maxSpeedMetersPerSecond));
   }
   // END: Setup Feedforward
+
+  // START: Setup PID Control feedback loop
+  /**
+   * This method is similar to {@link #arcadeDriveFeedforward(double, double)}, with the following
+   * differences:
+   *
+   * <ul>
+   *   <li>adds PID loop feedback control to voltages computed by feedforward
+   * </ul>
+   */
+  public void arcadeDriveClosedLoop(double xaxisSpeed, double zaxisRotate) {
+    var wheelSpeeds = DifferentialDrive.arcadeDriveIK(xaxisSpeed, zaxisRotate, true);
+    io.setDriveVoltage(
+        leftFeedforward.calculate(wheelSpeeds.left * SysId.Drive.maxSpeedMetersPerSecond)
+            + leftVelocityPid.calculate(
+                getLeftVelocityMeters(), wheelSpeeds.left * SysId.Drive.maxSpeedMetersPerSecond),
+        rightFeedforward.calculate(wheelSpeeds.right * SysId.Drive.maxSpeedMetersPerSecond)
+            + rightVelocityPid.calculate(
+                getRightVelocityMeters(), wheelSpeeds.right * SysId.Drive.maxSpeedMetersPerSecond));
+  }
+  // END: Setup PID Control feedback loop
 
   /** Reset the encoders */
   public void resetEncoders() {
@@ -193,4 +229,24 @@ public class Drivetrain extends SubsystemBase {
     logger.recordOutput("Drive/Right/DistanceInch", getRightDistanceInch());
     // END: Setup AdvantageKit IO
   }
+
+  // START: Setup PID Control feedback loop
+  /**
+   * The current velocity of the left wheels in meters/second.
+   *
+   * @return the current velocity of the left wheels (in meters/second)
+   */
+  public double getLeftVelocityMeters() {
+    return inputs.leftVelocityRadPerSec * SysId.Drive.wheelRadiusMeters;
+  }
+
+  /**
+   * The current velocity of the right wheels in meters/second.
+   *
+   * @return the current velocity of the right wheels (in meters/second)
+   */
+  public double getRightVelocityMeters() {
+    return inputs.rightVelocityRadPerSec * SysId.Drive.wheelRadiusMeters;
+  }
+  // END: Setup PID Control feedback loop
 }

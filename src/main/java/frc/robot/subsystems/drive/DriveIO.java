@@ -25,6 +25,11 @@ public interface DriveIO {
 
     public double leftAppliedVoltage = 0.0;
     public double rightAppliedVoltage = 0.0;
+
+    // START: Setup PID Control feedback loop
+    public double leftVelocityRadPerSec = 0.0;
+    public double rightVelocityRadPerSec = 0.0;
+    // END: Setup PID Control feedback loop
   }
 
   /**
