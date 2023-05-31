@@ -4,7 +4,10 @@
 
 package frc.robot.subsystems;
 
+import com.pathplanner.lib.PathPlannerTrajectory;
+import com.pathplanner.lib.commands.PPRamseteCommand;
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.RamseteController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -17,6 +20,9 @@ import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.SysId;
 import frc.robot.subsystems.drive.DriveIO;
@@ -56,6 +62,10 @@ public class Drivetrain extends SubsystemBase {
       new DifferentialDriveKinematics(SysId.Drive.trackWidthMeters);
   // END: Setup Kinematics
 
+  // START: Setup pathplanner
+  private SimpleMotorFeedforward combinedFeedforward;
+  // END: Setup pathplanner
+
   /**
    * Creates a new Drivetrain.
    *
@@ -89,6 +99,14 @@ public class Drivetrain extends SubsystemBase {
     // START: Setup Odometry
     SmartDashboard.putData("Field", field);
     // END: Setup Odometry
+
+    // START: Setup pathplanner
+    combinedFeedforward =
+        new SimpleMotorFeedforward(
+            SysId.Drive.combinedksVolts,
+            SysId.Drive.combinedkvVoltSecondsPerMeter,
+            SysId.Drive.combinedkaVoltSecondsSquaredPerMeter);
+    // END: Setup pathplanner
   }
 
   /**
@@ -355,4 +373,61 @@ public class Drivetrain extends SubsystemBase {
   }
   // END: Setup Odometry
 
+  // START: Setup pathplanner
+  /**
+   * Resets the odometry to the specified pose.
+   *
+   * @param pose The pose to which to set the odometry.
+   */
+  public void resetOdometry(Pose2d pose) {
+    resetEncoders();
+    odometry.resetPosition(getRotation(), getLeftPositionMeters(), getRightPositionMeters(), pose);
+  }
+
+  /**
+   * This method generates a command that will cause the robot to follow the specificed trajectory
+   *
+   * @param traj the desired trajectory/path to follow
+   * @param isFirstPath set to true if the robot is at the starting point of the trajectory. When
+   *     true, the pose is reset to te starting pose of the trajectory.
+   * @param useAllianceColor set to true to translate the trajectory to account for any
+   *     alliance-specific non-symmetrical field differences. (E.g. 2023 ChargedUp)
+   * @return the command that, when executed, will control the robot to follow the desired
+   *     trajectory
+   */
+  public Command followTrajectoryCommand(
+      PathPlannerTrajectory traj, boolean isFirstPath, boolean useAllianceColor) {
+    return new SequentialCommandGroup(
+        new InstantCommand(
+            () -> {
+              // Reset odometry for the first path you run during auto
+              leftVelocityPid.reset();
+              rightVelocityPid.reset();
+
+              if (isFirstPath) {
+                this.resetOdometry(traj.getInitialPose());
+              }
+            }),
+        new PPRamseteCommand(
+            traj,
+            () -> odometry.getPoseMeters(), // Pose supplier
+            new RamseteController(),
+            combinedFeedforward,
+            this.kinematics, // DifferentialDriveKinematics
+            () ->
+                new DifferentialDriveWheelSpeeds(
+                    getLeftVelocityMeters(),
+                    getRightVelocityMeters()), // DifferentialDriveWheelSpeeds supplier
+            leftVelocityPid, // Left controller. Tune these values for your robot. Leaving them 0
+            // will only use feedforwards.
+            rightVelocityPid, // Right controller (usually the same values as left controller)
+            (leftVolts, rightVolts) ->
+                io.setDriveVoltage(leftVolts, rightVolts), // Voltage biconsumer
+            useAllianceColor, // Should the path be automatically mirrored depending on alliance
+            // color.
+            // Optional, defaults to true
+            this // Requires this drive subsystem
+            ));
+  }
+  // END: Setup pathplanner
 }
