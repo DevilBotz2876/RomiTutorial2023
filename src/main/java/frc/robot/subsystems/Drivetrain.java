@@ -6,9 +6,14 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.SysId;
 import frc.robot.subsystems.drive.DriveIO;
@@ -36,6 +41,12 @@ public class Drivetrain extends SubsystemBase {
   private PIDController leftVelocityPid;
   private PIDController rightVelocityPid;
   // END: Setup PID Control feedback loop
+
+  // START: Setup Odometry
+  private final DifferentialDriveOdometry odometry =
+      new DifferentialDriveOdometry(new Rotation2d(), 0.0, 0.0);
+  private Field2d field = new Field2d();
+  // END: Setup Odometry
 
   /**
    * Creates a new Drivetrain.
@@ -66,6 +77,10 @@ public class Drivetrain extends SubsystemBase {
         new PIDController(
             SysId.Drive.rightKpVelocity, SysId.Drive.rightKiVelocity, SysId.Drive.rightKdVelocity);
     // END: Setup PID Control feedback loop
+
+    // START: Setup Odometry
+    SmartDashboard.putData("Field", field);
+    // END: Setup Odometry
   }
 
   /**
@@ -132,6 +147,9 @@ public class Drivetrain extends SubsystemBase {
   /**
    * The left wheel distance in inches
    *
+   * <p>Note: This is for backwards compatibiity. New code should use {@link
+   * #getLeftPositionMeters()} instead.
+   *
    * @return the left wheel distance (in inches)
    */
   public double getLeftDistanceInch() {
@@ -140,6 +158,9 @@ public class Drivetrain extends SubsystemBase {
 
   /**
    * The right wheel distance in inches
+   *
+   * <p>Note: This is for backwards compatibiity. New code should use {@link
+   * #getRightPositionMeters()} instead.
    *
    * @return the right wheel distance (in inches)
    */
@@ -228,6 +249,13 @@ public class Drivetrain extends SubsystemBase {
     logger.recordOutput("Drive/Left/DistanceInch", getLeftDistanceInch());
     logger.recordOutput("Drive/Right/DistanceInch", getRightDistanceInch());
     // END: Setup AdvantageKit IO
+
+    // START: Setup Odometry
+    // Update odometry and log the new pose
+    Pose2d pose = odometry.update(getRotation(), getLeftPositionMeters(), getRightPositionMeters());
+    logger.recordOutput("Odometry", pose);
+    field.setRobotPose(pose);
+    // END: Setup Odometry
   }
 
   // START: Setup PID Control feedback loop
@@ -249,4 +277,34 @@ public class Drivetrain extends SubsystemBase {
     return inputs.rightVelocityRadPerSec * SysId.Drive.wheelRadiusMeters;
   }
   // END: Setup PID Control feedback loop
+
+  // START: Setup Odometry
+  /**
+   * The current position of the left wheels in meters.
+   *
+   * @return the current position of the left wheels (in meters)
+   */
+  public double getLeftPositionMeters() {
+    return inputs.leftPositionInRads * SysId.Drive.wheelRadiusMeters;
+  }
+
+  /**
+   * The current position of the right wheels in meters.
+   *
+   * @return the current position of the right wheels (in meters)
+   */
+  public double getRightPositionMeters() {
+    return inputs.rightPositionInRads * SysId.Drive.wheelRadiusMeters;
+  }
+
+  /**
+   * The current rotation in degrees.
+   *
+   * @return the current rotation
+   */
+  public Rotation2d getRotation() {
+    return new Rotation2d(-inputs.zRotationInRads);
+  }
+  // END: Setup Odometry
+
 }
