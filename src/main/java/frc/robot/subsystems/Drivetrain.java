@@ -4,74 +4,82 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.BuiltInAccelerometer;
-import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.sensors.RomiGyro;
+import frc.robot.subsystems.drive.DriveIO;
+import frc.robot.subsystems.drive.DriveIOInputsAutoLogged;
+import org.littletonrobotics.junction.Logger;
 
 public class Drivetrain extends SubsystemBase {
-  private static final double kCountsPerRevolution = 1440.0;
   private static final double kWheelDiameterInch = 2.75591; // 70 mm
 
-  // The Romi has the left and right motors set to
-  // PWM channels 0 and 1 respectively
-  private final Spark m_leftMotor = new Spark(0);
-  private final Spark m_rightMotor = new Spark(1);
+  private final DriveIO io;
+  private final DriveIOInputsAutoLogged inputs = new DriveIOInputsAutoLogged();
 
-  // The Romi has onboard encoders that are hardcoded
-  // to use DIO pins 4/5 and 6/7 for the left and right
-  private final Encoder m_leftEncoder = new Encoder(4, 5);
-  private final Encoder m_rightEncoder = new Encoder(6, 7);
+  private double leftPositionOffset;
+  private double rightPositionOffset;
+  private double xAccelerationOffset;
+  private double yAccelerationOffset;
+  private double zAccelerationOffset;
 
-  // Set up the differential drive controller
-  private final DifferentialDrive m_diffDrive = new DifferentialDrive(m_leftMotor, m_rightMotor);
-
-  // Set up the RomiGyro
-  private final RomiGyro m_gyro = new RomiGyro();
-
-  // Set up the BuiltInAccelerometer
-  private final BuiltInAccelerometer m_accelerometer = new BuiltInAccelerometer();
-
-  /** Creates a new Drivetrain. */
-  public Drivetrain() {
-    // We need to invert one side of the drivetrain so that positive voltages
-    // result in both sides moving forward. Depending on how your robot's
-    // gearbox is constructed, you might have to invert the left side instead.
-    m_rightMotor.setInverted(true);
-
-    // Use inches as unit for encoder distances
-    m_leftEncoder.setDistancePerPulse((Math.PI * kWheelDiameterInch) / kCountsPerRevolution);
-    m_rightEncoder.setDistancePerPulse((Math.PI * kWheelDiameterInch) / kCountsPerRevolution);
-    resetEncoders();
+  /**
+   * Creates a new Drivetrain.
+   *
+   * @param io an instance that implements the DriveIO interface
+   */
+  public Drivetrain(DriveIO io) {
+    this.io = io;
   }
 
+  /**
+   * The Arcade Drive mode is used to control the drivetrain using speed/throttle and rotation rate.
+   * This is typically used either with two axes from a single joystick, or split across joysticks
+   * (often on a single gamepad) with the throttle coming from one stick and the rotation from
+   * another.
+   *
+   * @param xaxisSpeed the desired speed along the x-axis normalized to [-1.0 to 1.0]. Positive
+   *     values indicate moving forward.
+   * @param zaxisRotate the desired rotation along the z-axis normalized to [-1.0 to 1.0]. Positive
+   *     values indicate moving counter-clockwise.
+   */
   public void arcadeDrive(double xaxisSpeed, double zaxisRotate) {
-    m_diffDrive.arcadeDrive(xaxisSpeed, zaxisRotate);
+    var wheelSpeeds = DifferentialDrive.arcadeDriveIK(xaxisSpeed, zaxisRotate, true);
+    io.setDriveVoltage(
+        wheelSpeeds.left * RobotController.getBatteryVoltage(),
+        wheelSpeeds.right * RobotController.getBatteryVoltage());
   }
 
+  /** Reset the encoders */
   public void resetEncoders() {
-    m_leftEncoder.reset();
-    m_rightEncoder.reset();
+    leftPositionOffset = inputs.leftPositionInRads;
+    rightPositionOffset = inputs.rightPositionInRads;
   }
 
-  public int getLeftEncoderCount() {
-    return m_leftEncoder.get();
-  }
-
-  public int getRightEncoderCount() {
-    return m_rightEncoder.get();
-  }
-
+  /**
+   * The left wheel distance in inches
+   *
+   * @return the left wheel distance (in inches)
+   */
   public double getLeftDistanceInch() {
-    return m_leftEncoder.getDistance();
+    return (inputs.leftPositionInRads - leftPositionOffset) * kWheelDiameterInch / 2;
   }
 
+  /**
+   * The right wheel distance in inches
+   *
+   * @return the right wheel distance (in inches)
+   */
   public double getRightDistanceInch() {
-    return m_rightEncoder.getDistance();
+    return (inputs.rightPositionInRads - rightPositionOffset) * kWheelDiameterInch / 2;
   }
 
+  /**
+   * The average wheel distance in inches
+   *
+   * @return the average wheel distance (in inches)
+   */
   public double getAverageDistanceInch() {
     return (getLeftDistanceInch() + getRightDistanceInch()) / 2.0;
   }
@@ -82,7 +90,7 @@ public class Drivetrain extends SubsystemBase {
    * @return The acceleration of the Romi along the X-axis in Gs
    */
   public double getAccelX() {
-    return m_accelerometer.getX();
+    return inputs.xAccelerationInGs;
   }
 
   /**
@@ -91,7 +99,7 @@ public class Drivetrain extends SubsystemBase {
    * @return The acceleration of the Romi along the Y-axis in Gs
    */
   public double getAccelY() {
-    return m_accelerometer.getY();
+    return inputs.yAccelerationInGs;
   }
 
   /**
@@ -100,7 +108,7 @@ public class Drivetrain extends SubsystemBase {
    * @return The acceleration of the Romi along the Z-axis in Gs
    */
   public double getAccelZ() {
-    return m_accelerometer.getZ();
+    return inputs.zAccelerationInGs;
   }
 
   /**
@@ -109,7 +117,7 @@ public class Drivetrain extends SubsystemBase {
    * @return The current angle of the Romi in degrees
    */
   public double getGyroAngleX() {
-    return m_gyro.getAngleX();
+    return Units.radiansToDegrees(inputs.xRotationInRads - xAccelerationOffset);
   }
 
   /**
@@ -118,7 +126,7 @@ public class Drivetrain extends SubsystemBase {
    * @return The current angle of the Romi in degrees
    */
   public double getGyroAngleY() {
-    return m_gyro.getAngleY();
+    return Units.radiansToDegrees(inputs.yRotationInRads - yAccelerationOffset);
   }
 
   /**
@@ -127,16 +135,26 @@ public class Drivetrain extends SubsystemBase {
    * @return The current angle of the Romi in degrees
    */
   public double getGyroAngleZ() {
-    return m_gyro.getAngleZ();
+    return Units.radiansToDegrees(inputs.zRotationInRads - zAccelerationOffset);
   }
 
   /** Reset the gyro. */
   public void resetGyro() {
-    m_gyro.reset();
+    xAccelerationOffset = inputs.xAccelerationInGs;
+    yAccelerationOffset = inputs.yAccelerationInGs;
+    zAccelerationOffset = inputs.zAccelerationInGs;
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    // START: Setup AdvantageKit IO
+    Logger logger = Logger.getInstance();
+    io.updateInputs(inputs);
+    logger.processInputs("Drive", inputs);
+
+    logger.recordOutput("Drive/Left/DistanceInch", getLeftDistanceInch());
+    logger.recordOutput("Drive/Right/DistanceInch", getRightDistanceInch());
+    // END: Setup AdvantageKit IO
   }
 }
