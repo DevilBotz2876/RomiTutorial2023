@@ -112,7 +112,7 @@ loadScripts(document, 'script');</script>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#setDriveVoltage(double,double)" class="member-name-link">setDriveVoltage</a><wbr>(double&nbsp;leftVolts,
  double&nbsp;rightVolts)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">
-<div class="block">Run open loop at the specified voltage.</div>
+<div class="block">Run the drivetrain open loop at the specified voltage.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default void</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#updateInputs(frc.robot.subsystems.drive.DriveIO.DriveIOInputs)" class="member-name-link">updateInputs</a><wbr>(<a href="DriveIO.DriveIOInputs.html" title="class in frc.robot.subsystems.drive">DriveIO.DriveIOInputs</a>&nbsp;inputs)</code></div>
@@ -137,7 +137,11 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="updateInputs(frc.robot.subsystems.drive.DriveIO.DriveIOInputs)">
 <h3>updateInputs</h3>
 <div class="member-signature"><span class="modifiers">default</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">updateInputs</span><wbr><span class="parameters">(<a href="DriveIO.DriveIOInputs.html" title="class in frc.robot.subsystems.drive">DriveIO.DriveIOInputs</a>&nbsp;inputs)</span></div>
-<div class="block">Updates the set of loggable inputs.</div>
+<div class="block">Updates the set of loggable inputs. Should be called periodically.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>inputs</code> - the set of loggable inputs</dd>
+</dl>
 </section>
 </li>
 <li>
@@ -145,7 +149,12 @@ loadScripts(document, 'script');</script>
 <h3>setDriveVoltage</h3>
 <div class="member-signature"><span class="modifiers">default</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setDriveVoltage</span><wbr><span class="parameters">(double&nbsp;leftVolts,
  double&nbsp;rightVolts)</span></div>
-<div class="block">Run open loop at the specified voltage.</div>
+<div class="block">Run the drivetrain open loop at the specified voltage.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>leftVolts</code> - the desired voltage for the left side of the drivetrain</dd>
+<dd><code>rightVolts</code> - the desired voltage for the right side of the drivetrain</dd>
+</dl>
 </section>
 </li>
 </ul>

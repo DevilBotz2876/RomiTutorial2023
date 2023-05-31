@@ -82,6 +82,8 @@ loadScripts(document, 'script');</script>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">DriveIORomi</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
 implements <a href="DriveIO.html" title="interface in frc.robot.subsystems.drive">DriveIO</a></span></div>
+<div class="block">The DriveIORomi class contains the Romi HW specific drivetrain initialization of the motors,
+ encoders, gyros, and accelerometer</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -124,7 +126,7 @@ implements <a href="DriveIO.html" title="interface in frc.robot.subsystems.drive
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setDriveVoltage(double,double)" class="member-name-link">setDriveVoltage</a><wbr>(double&nbsp;leftVolts,
  double&nbsp;rightVolts)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Run open loop at the specified voltage.</div>
+<div class="block">Run the drivetrain open loop at the specified voltage.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#updateInputs(frc.robot.subsystems.drive.DriveIO.DriveIOInputs)" class="member-name-link">updateInputs</a><wbr>(<a href="DriveIO.DriveIOInputs.html" title="class in frc.robot.subsystems.drive">DriveIO.DriveIOInputs</a>&nbsp;inputs)</code></div>
@@ -167,11 +169,12 @@ implements <a href="DriveIO.html" title="interface in frc.robot.subsystems.drive
 <section class="detail" id="updateInputs(frc.robot.subsystems.drive.DriveIO.DriveIOInputs)">
 <h3>updateInputs</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">updateInputs</span><wbr><span class="parameters">(<a href="DriveIO.DriveIOInputs.html" title="class in frc.robot.subsystems.drive">DriveIO.DriveIOInputs</a>&nbsp;inputs)</span></div>
-<div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="DriveIO.html#updateInputs(frc.robot.subsystems.drive.DriveIO.DriveIOInputs)">DriveIO</a></code></span></div>
-<div class="block">Updates the set of loggable inputs.</div>
+<div class="block">Updates the set of loggable inputs. Should be called periodically.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="DriveIO.html#updateInputs(frc.robot.subsystems.drive.DriveIO.DriveIOInputs)">updateInputs</a></code>&nbsp;in interface&nbsp;<code><a href="DriveIO.html" title="interface in frc.robot.subsystems.drive">DriveIO</a></code></dd>
+<dt>Parameters:</dt>
+<dd><code>inputs</code> - the set of loggable inputs</dd>
 </dl>
 </section>
 </li>
@@ -180,11 +183,13 @@ implements <a href="DriveIO.html" title="interface in frc.robot.subsystems.drive
 <h3>setDriveVoltage</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setDriveVoltage</span><wbr><span class="parameters">(double&nbsp;leftVolts,
  double&nbsp;rightVolts)</span></div>
-<div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="DriveIO.html#setDriveVoltage(double,double)">DriveIO</a></code></span></div>
-<div class="block">Run open loop at the specified voltage.</div>
+<div class="block">Run the drivetrain open loop at the specified voltage.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="DriveIO.html#setDriveVoltage(double,double)">setDriveVoltage</a></code>&nbsp;in interface&nbsp;<code><a href="DriveIO.html" title="interface in frc.robot.subsystems.drive">DriveIO</a></code></dd>
+<dt>Parameters:</dt>
+<dd><code>leftVolts</code> - the desired voltage for the left side of the drivetrain</dd>
+<dd><code>rightVolts</code> - the desired voltage for the right side of the drivetrain</dd>
 </dl>
 </section>
 </li>

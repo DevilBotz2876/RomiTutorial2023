@@ -55,7 +55,9 @@ loadScripts(document, 'script');</script>
 <dt><a href="frc/robot/Constants.AdvantageKit.html#%3Cinit%3E()" class="member-name-link">AdvantageKit()</a> - Constructor for class frc.robot.<a href="frc/robot/Constants.AdvantageKit.html" title="class in frc.robot">Constants.AdvantageKit</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="frc/robot/subsystems/Drivetrain.html#arcadeDrive(double,double)" class="member-name-link">arcadeDrive(double, double)</a> - Method in class frc.robot.subsystems.<a href="frc/robot/subsystems/Drivetrain.html" title="class in frc.robot.subsystems">Drivetrain</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">The Arcade Drive mode is used to control the drivetrain using speed/throttle and rotation rate.</div>
+</dd>
 <dt><a href="frc/robot/commands/ArcadeDrive.html" class="type-name-link" title="class in frc.robot.commands">ArcadeDrive</a> - Class in <a href="frc/robot/commands/package-summary.html">frc.robot.commands</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="frc/robot/commands/ArcadeDrive.html#%3Cinit%3E(frc.robot.subsystems.Drivetrain,java.util.function.Supplier,java.util.function.Supplier)" class="member-name-link">ArcadeDrive(Drivetrain, Supplier&lt;Double&gt;, Supplier&lt;Double&gt;)</a> - Constructor for class frc.robot.commands.<a href="frc/robot/commands/ArcadeDrive.html" title="class in frc.robot.commands">ArcadeDrive</a></dt>
@@ -63,9 +65,31 @@ loadScripts(document, 'script');</script>
 <div class="block">Creates a new ArcadeDrive.</div>
 </dd>
 <dt><a href="frc/robot/subsystems/Drivetrain.html#arcadeDriveClosedLoop(double,double)" class="member-name-link">arcadeDriveClosedLoop(double, double)</a> - Method in class frc.robot.subsystems.<a href="frc/robot/subsystems/Drivetrain.html" title="class in frc.robot.subsystems">Drivetrain</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">This method is similar to <a href="frc/robot/subsystems/Drivetrain.html#arcadeDriveFeedforward(double,double)"><code>Drivetrain.arcadeDriveFeedforward(double, double)</code></a>, with the following
+ differences:
+
+ 
+   adds PID loop feedback control to voltages computed by feedforward
+ </div>
+</dd>
 <dt><a href="frc/robot/subsystems/Drivetrain.html#arcadeDriveFeedforward(double,double)" class="member-name-link">arcadeDriveFeedforward(double, double)</a> - Method in class frc.robot.subsystems.<a href="frc/robot/subsystems/Drivetrain.html" title="class in frc.robot.subsystems">Drivetrain</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">This method is similar to <a href="frc/robot/subsystems/Drivetrain.html#arcadeDrive(double,double)"><code>Drivetrain.arcadeDrive(double, double)</code></a>, with the following differences:
+
+ 
+   uses feedforward control to compute voltages based on the desired left/right velocity
+ </div>
+</dd>
+<dt><a href="frc/robot/subsystems/Drivetrain.html#arcadeDriveKinematics(double,double)" class="member-name-link">arcadeDriveKinematics(double, double)</a> - Method in class frc.robot.subsystems.<a href="frc/robot/subsystems/Drivetrain.html" title="class in frc.robot.subsystems">Drivetrain</a></dt>
+<dd>
+<div class="block">This method is similar to <a href="frc/robot/subsystems/Drivetrain.html#arcadeDriveClosedLoop(double,double)"><code>Drivetrain.arcadeDriveClosedLoop(double, double)</code></a>, with the following
+ differences:
+
+ 
+   refactored to use DifferentialDriveWheelSpeeds kinematics
+ </div>
+</dd>
 <dt><a href="frc/robot/commands/AutonomousDistance.html" class="type-name-link" title="class in frc.robot.commands">AutonomousDistance</a> - Class in <a href="frc/robot/commands/package-summary.html">frc.robot.commands</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="frc/robot/commands/AutonomousDistance.html#%3Cinit%3E(frc.robot.subsystems.Drivetrain)" class="member-name-link">AutonomousDistance(Drivetrain)</a> - Constructor for class frc.robot.commands.<a href="frc/robot/commands/AutonomousDistance.html" title="class in frc.robot.commands">AutonomousDistance</a></dt>
@@ -148,7 +172,10 @@ loadScripts(document, 'script');</script>
 <dt><a href="frc/robot/subsystems/drive/DriveIO.DriveIOInputs.html#%3Cinit%3E()" class="member-name-link">DriveIOInputs()</a> - Constructor for class frc.robot.subsystems.drive.<a href="frc/robot/subsystems/drive/DriveIO.DriveIOInputs.html" title="class in frc.robot.subsystems.drive">DriveIO.DriveIOInputs</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="frc/robot/subsystems/drive/DriveIORomi.html" class="type-name-link" title="class in frc.robot.subsystems.drive">DriveIORomi</a> - Class in <a href="frc/robot/subsystems/drive/package-summary.html">frc.robot.subsystems.drive</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">The DriveIORomi class contains the Romi HW specific drivetrain initialization of the motors,
+ encoders, gyros, and accelerometer</div>
+</dd>
 <dt><a href="frc/robot/subsystems/drive/DriveIORomi.html#%3Cinit%3E()" class="member-name-link">DriveIORomi()</a> - Constructor for class frc.robot.subsystems.drive.<a href="frc/robot/subsystems/drive/DriveIORomi.html" title="class in frc.robot.subsystems.drive">DriveIORomi</a></dt>
 <dd>
 <div class="block">Creates a new Drivetrain.</div>
@@ -166,7 +193,10 @@ loadScripts(document, 'script');</script>
 <div class="block">Creates a new Drivetrain.</div>
 </dd>
 <dt><a href="frc/robot/commands/DriveVision.html" class="type-name-link" title="class in frc.robot.commands">DriveVision</a> - Class in <a href="frc/robot/commands/package-summary.html">frc.robot.commands</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">This class implements a command that uses PhotonVision AprilTag tracking to automatically turn
+ the robot to face the nearest/best AprilTag.</div>
+</dd>
 <dt><a href="frc/robot/commands/DriveVision.html#%3Cinit%3E(frc.robot.subsystems.Drivetrain)" class="member-name-link">DriveVision(Drivetrain)</a> - Constructor for class frc.robot.commands.<a href="frc/robot/commands/DriveVision.html" title="class in frc.robot.commands">DriveVision</a></dt>
 <dd>&nbsp;</dd>
 </dl>
@@ -198,7 +228,9 @@ loadScripts(document, 'script');</script>
 <h2 class="title" id="I:F">F</h2>
 <dl class="index">
 <dt><a href="frc/robot/subsystems/Drivetrain.html#followTrajectoryCommand(com.pathplanner.lib.PathPlannerTrajectory,boolean,boolean)" class="member-name-link">followTrajectoryCommand(PathPlannerTrajectory, boolean, boolean)</a> - Method in class frc.robot.subsystems.<a href="frc/robot/subsystems/Drivetrain.html" title="class in frc.robot.subsystems">Drivetrain</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">This method generates a command that will cause the robot to follow the specificed trajectory</div>
+</dd>
 <dt><a href="frc/robot/package-summary.html">frc.robot</a> - package frc.robot</dt>
 <dd>&nbsp;</dd>
 <dt><a href="frc/robot/commands/package-summary.html">frc.robot.commands</a> - package frc.robot.commands</dt>
@@ -245,7 +277,9 @@ loadScripts(document, 'script');</script>
 <div class="block">Use this to pass the autonomous command to the main <a href="frc/robot/Robot.html" title="class in frc.robot"><code>Robot</code></a> class.</div>
 </dd>
 <dt><a href="frc/robot/subsystems/Drivetrain.html#getAverageDistanceInch()" class="member-name-link">getAverageDistanceInch()</a> - Method in class frc.robot.subsystems.<a href="frc/robot/subsystems/Drivetrain.html" title="class in frc.robot.subsystems">Drivetrain</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">The average wheel distance in inches</div>
+</dd>
 <dt><a href="frc/robot/subsystems/OnBoardIO.html#getButtonAPressed()" class="member-name-link">getButtonAPressed()</a> - Method in class frc.robot.subsystems.<a href="frc/robot/subsystems/OnBoardIO.html" title="class in frc.robot.subsystems">OnBoardIO</a></dt>
 <dd>
 <div class="block">Gets if the A button is pressed.</div>
@@ -271,20 +305,16 @@ loadScripts(document, 'script');</script>
 <div class="block">Current angle of the Romi around the Z-axis.</div>
 </dd>
 <dt><a href="frc/robot/subsystems/Drivetrain.html#getLeftDistanceInch()" class="member-name-link">getLeftDistanceInch()</a> - Method in class frc.robot.subsystems.<a href="frc/robot/subsystems/Drivetrain.html" title="class in frc.robot.subsystems">Drivetrain</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="frc/robot/subsystems/Drivetrain.html#getLeftEncoderCount()" class="member-name-link">getLeftEncoderCount()</a> - Method in class frc.robot.subsystems.<a href="frc/robot/subsystems/Drivetrain.html" title="class in frc.robot.subsystems">Drivetrain</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">The left wheel distance in inches</div>
+</dd>
 <dt><a href="frc/robot/subsystems/Drivetrain.html#getLeftPositionMeters()" class="member-name-link">getLeftPositionMeters()</a> - Method in class frc.robot.subsystems.<a href="frc/robot/subsystems/Drivetrain.html" title="class in frc.robot.subsystems">Drivetrain</a></dt>
 <dd>
-<div class="block">Returns the position of the left wheels in meters.</div>
+<div class="block">The current position of the left wheels in meters.</div>
 </dd>
 <dt><a href="frc/robot/subsystems/Drivetrain.html#getLeftVelocityMeters()" class="member-name-link">getLeftVelocityMeters()</a> - Method in class frc.robot.subsystems.<a href="frc/robot/subsystems/Drivetrain.html" title="class in frc.robot.subsystems">Drivetrain</a></dt>
 <dd>
-<div class="block">Returns the velocity of the left wheels in meters/second.</div>
-</dd>
-<dt><a href="frc/robot/subsystems/Drivetrain.html#getPose()" class="member-name-link">getPose()</a> - Method in class frc.robot.subsystems.<a href="frc/robot/subsystems/Drivetrain.html" title="class in frc.robot.subsystems">Drivetrain</a></dt>
-<dd>
-<div class="block">Returns the current odometry pose in meters.</div>
+<div class="block">The current velocity of the left wheels in meters/second.</div>
 </dd>
 <dt><a href="frc/robot/sensors/RomiGyro.html#getRateX()" class="member-name-link">getRateX()</a> - Method in class frc.robot.sensors.<a href="frc/robot/sensors/RomiGyro.html" title="class in frc.robot.sensors">RomiGyro</a></dt>
 <dd>
@@ -299,23 +329,21 @@ loadScripts(document, 'script');</script>
 <div class="block">Get the rate of turn in degrees-per-second around the Z-axis.</div>
 </dd>
 <dt><a href="frc/robot/subsystems/Drivetrain.html#getRightDistanceInch()" class="member-name-link">getRightDistanceInch()</a> - Method in class frc.robot.subsystems.<a href="frc/robot/subsystems/Drivetrain.html" title="class in frc.robot.subsystems">Drivetrain</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="frc/robot/subsystems/Drivetrain.html#getRightEncoderCount()" class="member-name-link">getRightEncoderCount()</a> - Method in class frc.robot.subsystems.<a href="frc/robot/subsystems/Drivetrain.html" title="class in frc.robot.subsystems">Drivetrain</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">The right wheel distance in inches</div>
+</dd>
 <dt><a href="frc/robot/subsystems/Drivetrain.html#getRightPositionMeters()" class="member-name-link">getRightPositionMeters()</a> - Method in class frc.robot.subsystems.<a href="frc/robot/subsystems/Drivetrain.html" title="class in frc.robot.subsystems">Drivetrain</a></dt>
 <dd>
-<div class="block">Returns the position of the right wheels in meters.</div>
+<div class="block">The current position of the right wheels in meters.</div>
 </dd>
 <dt><a href="frc/robot/subsystems/Drivetrain.html#getRightVelocityMeters()" class="member-name-link">getRightVelocityMeters()</a> - Method in class frc.robot.subsystems.<a href="frc/robot/subsystems/Drivetrain.html" title="class in frc.robot.subsystems">Drivetrain</a></dt>
 <dd>
-<div class="block">Returns the velocity of the right wheels in meters/second.</div>
+<div class="block">The current velocity of the right wheels in meters/second.</div>
 </dd>
 <dt><a href="frc/robot/subsystems/Drivetrain.html#getRotation()" class="member-name-link">getRotation()</a> - Method in class frc.robot.subsystems.<a href="frc/robot/subsystems/Drivetrain.html" title="class in frc.robot.subsystems">Drivetrain</a></dt>
 <dd>
-<div class="block">Returns the rotation in degrees.</div>
+<div class="block">The current rotation in degrees.</div>
 </dd>
-<dt><a href="frc/robot/subsystems/Drivetrain.html#getWheelSpeeds()" class="member-name-link">getWheelSpeeds()</a> - Method in class frc.robot.subsystems.<a href="frc/robot/subsystems/Drivetrain.html" title="class in frc.robot.subsystems">Drivetrain</a></dt>
-<dd>&nbsp;</dd>
 <dt><a href="frc/robot/BuildConstants.html#GIT_BRANCH" class="member-name-link">GIT_BRANCH</a> - Static variable in class frc.robot.<a href="frc/robot/BuildConstants.html" title="class in frc.robot">BuildConstants</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="frc/robot/BuildConstants.html#GIT_DATE" class="member-name-link">GIT_DATE</a> - Static variable in class frc.robot.<a href="frc/robot/BuildConstants.html" title="class in frc.robot">BuildConstants</a></dt>
@@ -423,7 +451,9 @@ loadScripts(document, 'script');</script>
 <div class="block">Reset the gyro angles to 0.</div>
 </dd>
 <dt><a href="frc/robot/subsystems/Drivetrain.html#resetEncoders()" class="member-name-link">resetEncoders()</a> - Method in class frc.robot.subsystems.<a href="frc/robot/subsystems/Drivetrain.html" title="class in frc.robot.subsystems">Drivetrain</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Reset the encoders</div>
+</dd>
 <dt><a href="frc/robot/subsystems/Drivetrain.html#resetGyro()" class="member-name-link">resetGyro()</a> - Method in class frc.robot.subsystems.<a href="frc/robot/subsystems/Drivetrain.html" title="class in frc.robot.subsystems">Drivetrain</a></dt>
 <dd>
 <div class="block">Reset the gyro.</div>
@@ -486,15 +516,17 @@ loadScripts(document, 'script');</script>
 <h2 class="title" id="I:S">S</h2>
 <dl class="index">
 <dt><a href="frc/robot/subsystems/Drivetrain.html#setChassisSpeeds(edu.wpi.first.math.kinematics.ChassisSpeeds)" class="member-name-link">setChassisSpeeds(ChassisSpeeds)</a> - Method in class frc.robot.subsystems.<a href="frc/robot/subsystems/Drivetrain.html" title="class in frc.robot.subsystems">Drivetrain</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">This method allows the use drivetrain agnostic ChassisSpeeds to move the drivetrain.</div>
+</dd>
 <dt><a href="frc/robot/subsystems/drive/DriveIO.html#setDriveVoltage(double,double)" class="member-name-link">setDriveVoltage(double, double)</a> - Method in interface frc.robot.subsystems.drive.<a href="frc/robot/subsystems/drive/DriveIO.html" title="interface in frc.robot.subsystems.drive">DriveIO</a></dt>
 <dd>
-<div class="block">Run open loop at the specified voltage.</div>
+<div class="block">Run the drivetrain open loop at the specified voltage.</div>
 </dd>
 <dt><a href="frc/robot/subsystems/drive/DriveIORomi.html#setDriveVoltage(double,double)" class="member-name-link">setDriveVoltage(double, double)</a> - Method in class frc.robot.subsystems.drive.<a href="frc/robot/subsystems/drive/DriveIORomi.html" title="class in frc.robot.subsystems.drive">DriveIORomi</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="frc/robot/subsystems/Drivetrain.html#setDriveVoltage(double,double)" class="member-name-link">setDriveVoltage(double, double)</a> - Method in class frc.robot.subsystems.<a href="frc/robot/subsystems/Drivetrain.html" title="class in frc.robot.subsystems">Drivetrain</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Run the drivetrain open loop at the specified voltage.</div>
+</dd>
 <dt><a href="frc/robot/subsystems/OnBoardIO.html#setGreenLed(boolean)" class="member-name-link">setGreenLed(boolean)</a> - Method in class frc.robot.subsystems.<a href="frc/robot/subsystems/OnBoardIO.html" title="class in frc.robot.subsystems">OnBoardIO</a></dt>
 <dd>
 <div class="block">Sets the green LED.</div>
@@ -508,7 +540,9 @@ loadScripts(document, 'script');</script>
 <div class="block">Sets the yellow LED.</div>
 </dd>
 <dt><a href="frc/robot/subsystems/Drivetrain.html#stop()" class="member-name-link">stop()</a> - Method in class frc.robot.subsystems.<a href="frc/robot/subsystems/Drivetrain.html" title="class in frc.robot.subsystems">Drivetrain</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Stops all movement of the drivetrain</div>
+</dd>
 <dt><a href="frc/robot/Constants.SysId.html#%3Cinit%3E()" class="member-name-link">SysId()</a> - Constructor for class frc.robot.<a href="frc/robot/Constants.SysId.html" title="class in frc.robot">Constants.SysId</a></dt>
 <dd>&nbsp;</dd>
 </dl>
@@ -548,7 +582,9 @@ loadScripts(document, 'script');</script>
 <div class="block">Updates the set of loggable inputs.</div>
 </dd>
 <dt><a href="frc/robot/subsystems/drive/DriveIORomi.html#updateInputs(frc.robot.subsystems.drive.DriveIO.DriveIOInputs)" class="member-name-link">updateInputs(DriveIO.DriveIOInputs)</a> - Method in class frc.robot.subsystems.drive.<a href="frc/robot/subsystems/drive/DriveIORomi.html" title="class in frc.robot.subsystems.drive">DriveIORomi</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Updates the set of loggable inputs.</div>
+</dd>
 </dl>
 <h2 class="title" id="I:V">V</h2>
 <dl class="index">

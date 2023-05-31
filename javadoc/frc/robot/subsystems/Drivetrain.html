@@ -115,124 +115,146 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#arcadeDrive(double,double)" class="member-name-link">arcadeDrive</a><wbr>(double&nbsp;xaxisSpeed,
  double&nbsp;zaxisRotate)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">The Arcade Drive mode is used to control the drivetrain using speed/throttle and rotation rate.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#arcadeDriveClosedLoop(double,double)" class="member-name-link">arcadeDriveClosedLoop</a><wbr>(double&nbsp;xaxisSpeed,
  double&nbsp;zaxisRotate)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">This method is similar to <a href="#arcadeDriveFeedforward(double,double)"><code>arcadeDriveFeedforward(double, double)</code></a>, with the following
+ differences:
+
+ 
+   adds PID loop feedback control to voltages computed by feedforward
+ </div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#arcadeDriveFeedforward(double,double)" class="member-name-link">arcadeDriveFeedforward</a><wbr>(double&nbsp;xaxisSpeed,
  double&nbsp;zaxisRotate)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>edu.wpi.first.wpilibj2.command.Command</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#followTrajectoryCommand(com.pathplanner.lib.PathPlannerTrajectory,boolean,boolean)" class="member-name-link">followTrajectoryCommand</a><wbr>(com.pathplanner.lib.PathPlannerTrajectory&nbsp;traj,
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">This method is similar to <a href="#arcadeDrive(double,double)"><code>arcadeDrive(double, double)</code></a>, with the following differences:
+
+ 
+   uses feedforward control to compute voltages based on the desired left/right velocity
+ </div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#arcadeDriveKinematics(double,double)" class="member-name-link">arcadeDriveKinematics</a><wbr>(double&nbsp;xaxisSpeed,
+ double&nbsp;zaxisRotate)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">This method is similar to <a href="#arcadeDriveClosedLoop(double,double)"><code>arcadeDriveClosedLoop(double, double)</code></a>, with the following
+ differences:
+
+ 
+   refactored to use DifferentialDriveWheelSpeeds kinematics
+ </div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>edu.wpi.first.wpilibj2.command.Command</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#followTrajectoryCommand(com.pathplanner.lib.PathPlannerTrajectory,boolean,boolean)" class="member-name-link">followTrajectoryCommand</a><wbr>(com.pathplanner.lib.PathPlannerTrajectory&nbsp;traj,
  boolean&nbsp;isFirstPath,
  boolean&nbsp;useAllianceColor)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>double</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getAccelX()" class="member-name-link">getAccelX</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">This method generates a command that will cause the robot to follow the specificed trajectory</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>double</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getAccelX()" class="member-name-link">getAccelX</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">The acceleration in the X-axis.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>double</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getAccelY()" class="member-name-link">getAccelY</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>double</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getAccelY()" class="member-name-link">getAccelY</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">The acceleration in the Y-axis.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>double</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getAccelZ()" class="member-name-link">getAccelZ</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>double</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getAccelZ()" class="member-name-link">getAccelZ</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">The acceleration in the Z-axis.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>double</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getAverageDistanceInch()" class="member-name-link">getAverageDistanceInch</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>double</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getGyroAngleX()" class="member-name-link">getGyroAngleX</a>()</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getAverageDistanceInch()" class="member-name-link">getAverageDistanceInch</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">The average wheel distance in inches</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>double</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getGyroAngleX()" class="member-name-link">getGyroAngleX</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Current angle of the Romi around the X-axis.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>double</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getGyroAngleY()" class="member-name-link">getGyroAngleY</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>double</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getGyroAngleY()" class="member-name-link">getGyroAngleY</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Current angle of the Romi around the Y-axis.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>double</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getGyroAngleZ()" class="member-name-link">getGyroAngleZ</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>double</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getGyroAngleZ()" class="member-name-link">getGyroAngleZ</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Current angle of the Romi around the Z-axis.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>double</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getLeftDistanceInch()" class="member-name-link">getLeftDistanceInch</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getLeftEncoderCount()" class="member-name-link">getLeftEncoderCount</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>double</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getLeftDistanceInch()" class="member-name-link">getLeftDistanceInch</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">The left wheel distance in inches</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>double</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getLeftPositionMeters()" class="member-name-link">getLeftPositionMeters</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Returns the position of the left wheels in meters.</div>
+<div class="block">The current position of the left wheels in meters.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>double</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getLeftVelocityMeters()" class="member-name-link">getLeftVelocityMeters</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Returns the velocity of the left wheels in meters/second.</div>
+<div class="block">The current velocity of the left wheels in meters/second.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>edu.wpi.first.math.geometry.Pose2d</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getPose()" class="member-name-link">getPose</a>()</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>double</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getRightDistanceInch()" class="member-name-link">getRightDistanceInch</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Returns the current odometry pose in meters.</div>
+<div class="block">The right wheel distance in inches</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>double</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getRightDistanceInch()" class="member-name-link">getRightDistanceInch</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getRightEncoderCount()" class="member-name-link">getRightEncoderCount</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>double</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getRightPositionMeters()" class="member-name-link">getRightPositionMeters</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Returns the position of the right wheels in meters.</div>
+<div class="block">The current position of the right wheels in meters.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>double</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getRightVelocityMeters()" class="member-name-link">getRightVelocityMeters</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Returns the velocity of the right wheels in meters/second.</div>
+<div class="block">The current velocity of the right wheels in meters/second.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>edu.wpi.first.math.geometry.Rotation2d</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getRotation()" class="member-name-link">getRotation</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Returns the rotation in degrees.</div>
+<div class="block">The current rotation in degrees.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getWheelSpeeds()" class="member-name-link">getWheelSpeeds</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#periodic()" class="member-name-link">periodic</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#resetEncoders()" class="member-name-link">resetEncoders</a>()</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#periodic()" class="member-name-link">periodic</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#resetGyro()" class="member-name-link">resetGyro</a>()</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#resetEncoders()" class="member-name-link">resetEncoders</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Reset the encoders</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#resetGyro()" class="member-name-link">resetGyro</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Reset the gyro.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#resetOdometry(edu.wpi.first.math.geometry.Pose2d)" class="member-name-link">resetOdometry</a><wbr>(edu.wpi.first.math.geometry.Pose2d&nbsp;pose)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#resetOdometry(edu.wpi.first.math.geometry.Pose2d)" class="member-name-link">resetOdometry</a><wbr>(edu.wpi.first.math.geometry.Pose2d&nbsp;pose)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Resets the odometry to the specified pose.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setChassisSpeeds(edu.wpi.first.math.kinematics.ChassisSpeeds)" class="member-name-link">setChassisSpeeds</a><wbr>(edu.wpi.first.math.kinematics.ChassisSpeeds&nbsp;chassisSpeeds)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setDriveVoltage(double,double)" class="member-name-link">setDriveVoltage</a><wbr>(double&nbsp;leftVolts,
- double&nbsp;rightVolts)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setChassisSpeeds(edu.wpi.first.math.kinematics.ChassisSpeeds)" class="member-name-link">setChassisSpeeds</a><wbr>(edu.wpi.first.math.kinematics.ChassisSpeeds&nbsp;chassisSpeeds)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">This method allows the use drivetrain agnostic ChassisSpeeds to move the drivetrain.</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#stop()" class="member-name-link">stop</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Stops all movement of the drivetrain</div>
+</div>
 </div>
 </div>
 </div>
@@ -261,6 +283,10 @@ loadScripts(document, 'script');</script>
 <h3>Drivetrain</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">Drivetrain</span><wbr><span class="parameters">(<a href="drive/DriveIO.html" title="interface in frc.robot.subsystems.drive">DriveIO</a>&nbsp;io)</span></div>
 <div class="block">Creates a new Drivetrain.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>io</code> - an instance that implements the DriveIO interface</dd>
+</dl>
 </section>
 </li>
 </ul>
@@ -276,6 +302,17 @@ loadScripts(document, 'script');</script>
 <h3>arcadeDrive</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">arcadeDrive</span><wbr><span class="parameters">(double&nbsp;xaxisSpeed,
  double&nbsp;zaxisRotate)</span></div>
+<div class="block">The Arcade Drive mode is used to control the drivetrain using speed/throttle and rotation rate.
+ This is typically used either with two axes from a single joystick, or split across joysticks
+ (often on a single gamepad) with the throttle coming from one stick and the rotation from
+ another.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>xaxisSpeed</code> - the desired speed along the x-axis normalized to [-1.0 to 1.0]. Positive
+     values indicate moving forward.</dd>
+<dd><code>zaxisRotate</code> - the desired rotation along the z-axis normalized to [-1.0 to 1.0]. Positive
+     values indicate moving counter-clockwise.</dd>
+</dl>
 </section>
 </li>
 <li>
@@ -283,6 +320,11 @@ loadScripts(document, 'script');</script>
 <h3>arcadeDriveFeedforward</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">arcadeDriveFeedforward</span><wbr><span class="parameters">(double&nbsp;xaxisSpeed,
  double&nbsp;zaxisRotate)</span></div>
+<div class="block">This method is similar to <a href="#arcadeDrive(double,double)"><code>arcadeDrive(double, double)</code></a>, with the following differences:
+
+ <ul>
+   <li>uses feedforward control to compute voltages based on the desired left/right velocity
+ </ul></div>
 </section>
 </li>
 <li>
@@ -290,42 +332,83 @@ loadScripts(document, 'script');</script>
 <h3>arcadeDriveClosedLoop</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">arcadeDriveClosedLoop</span><wbr><span class="parameters">(double&nbsp;xaxisSpeed,
  double&nbsp;zaxisRotate)</span></div>
+<div class="block">This method is similar to <a href="#arcadeDriveFeedforward(double,double)"><code>arcadeDriveFeedforward(double, double)</code></a>, with the following
+ differences:
+
+ <ul>
+   <li>adds PID loop feedback control to voltages computed by feedforward
+ </ul></div>
+</section>
+</li>
+<li>
+<section class="detail" id="arcadeDriveKinematics(double,double)">
+<h3>arcadeDriveKinematics</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">arcadeDriveKinematics</span><wbr><span class="parameters">(double&nbsp;xaxisSpeed,
+ double&nbsp;zaxisRotate)</span></div>
+<div class="block">This method is similar to <a href="#arcadeDriveClosedLoop(double,double)"><code>arcadeDriveClosedLoop(double, double)</code></a>, with the following
+ differences:
+
+ <ul>
+   <li>refactored to use DifferentialDriveWheelSpeeds kinematics
+ </ul></div>
+</section>
+</li>
+<li>
+<section class="detail" id="setChassisSpeeds(edu.wpi.first.math.kinematics.ChassisSpeeds)">
+<h3>setChassisSpeeds</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setChassisSpeeds</span><wbr><span class="parameters">(edu.wpi.first.math.kinematics.ChassisSpeeds&nbsp;chassisSpeeds)</span></div>
+<div class="block">This method allows the use drivetrain agnostic ChassisSpeeds to move the drivetrain. This
+ allows upper level code to control the drivetrain without any assumption on the drivetrain type
+ (e.g. Differential, Swerve, Mecanum, etc.). Kinematics are used to convert chassis speeds to
+ values useful for the actual drivetrain implementation.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>chassisSpeeds</code> - the desired chassis speed</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="resetEncoders()">
 <h3>resetEncoders</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">resetEncoders</span>()</div>
-</section>
-</li>
-<li>
-<section class="detail" id="getLeftEncoderCount()">
-<h3>getLeftEncoderCount</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">getLeftEncoderCount</span>()</div>
-</section>
-</li>
-<li>
-<section class="detail" id="getRightEncoderCount()">
-<h3>getRightEncoderCount</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">getRightEncoderCount</span>()</div>
+<div class="block">Reset the encoders</div>
 </section>
 </li>
 <li>
 <section class="detail" id="getLeftDistanceInch()">
 <h3>getLeftDistanceInch</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">double</span>&nbsp;<span class="element-name">getLeftDistanceInch</span>()</div>
+<div class="block">The left wheel distance in inches
+
+ <p>Note: This is for backwards compatibiity. New code should use <a href="#getLeftPositionMeters()"><code>getLeftPositionMeters()</code></a> instead.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>the left wheel distance (in inches)</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="getRightDistanceInch()">
 <h3>getRightDistanceInch</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">double</span>&nbsp;<span class="element-name">getRightDistanceInch</span>()</div>
+<div class="block">The right wheel distance in inches
+
+ <p>Note: This is for backwards compatibiity. New code should use <a href="#getRightPositionMeters()"><code>getRightPositionMeters()</code></a> instead.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>the right wheel distance (in inches)</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="getAverageDistanceInch()">
 <h3>getAverageDistanceInch</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">double</span>&nbsp;<span class="element-name">getAverageDistanceInch</span>()</div>
+<div class="block">The average wheel distance in inches</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>the average wheel distance (in inches)</dd>
+</dl>
 </section>
 </li>
 <li>
@@ -411,35 +494,55 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="getLeftVelocityMeters()">
 <h3>getLeftVelocityMeters</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">double</span>&nbsp;<span class="element-name">getLeftVelocityMeters</span>()</div>
-<div class="block">Returns the velocity of the left wheels in meters/second.</div>
+<div class="block">The current velocity of the left wheels in meters/second.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>the current velocity of the left wheels (in meters/second)</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="getRightVelocityMeters()">
 <h3>getRightVelocityMeters</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">double</span>&nbsp;<span class="element-name">getRightVelocityMeters</span>()</div>
-<div class="block">Returns the velocity of the right wheels in meters/second.</div>
+<div class="block">The current velocity of the right wheels in meters/second.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>the current velocity of the right wheels (in meters/second)</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="getLeftPositionMeters()">
 <h3>getLeftPositionMeters</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">double</span>&nbsp;<span class="element-name">getLeftPositionMeters</span>()</div>
-<div class="block">Returns the position of the left wheels in meters.</div>
+<div class="block">The current position of the left wheels in meters.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>the current position of the left wheels (in meters)</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="getRightPositionMeters()">
 <h3>getRightPositionMeters</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">double</span>&nbsp;<span class="element-name">getRightPositionMeters</span>()</div>
-<div class="block">Returns the position of the right wheels in meters.</div>
+<div class="block">The current position of the right wheels in meters.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>the current position of the right wheels (in meters)</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="getRotation()">
 <h3>getRotation</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">edu.wpi.first.math.geometry.Rotation2d</span>&nbsp;<span class="element-name">getRotation</span>()</div>
-<div class="block">Returns the rotation in degrees.</div>
+<div class="block">The current rotation in degrees.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>the current rotation</dd>
+</dl>
 </section>
 </li>
 <li>
@@ -454,43 +557,30 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
-<section class="detail" id="getPose()">
-<h3>getPose</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">edu.wpi.first.math.geometry.Pose2d</span>&nbsp;<span class="element-name">getPose</span>()</div>
-<div class="block">Returns the current odometry pose in meters.</div>
-</section>
-</li>
-<li>
-<section class="detail" id="getWheelSpeeds()">
-<h3>getWheelSpeeds</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds</span>&nbsp;<span class="element-name">getWheelSpeeds</span>()</div>
-</section>
-</li>
-<li>
-<section class="detail" id="setDriveVoltage(double,double)">
-<h3>setDriveVoltage</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setDriveVoltage</span><wbr><span class="parameters">(double&nbsp;leftVolts,
- double&nbsp;rightVolts)</span></div>
-</section>
-</li>
-<li>
 <section class="detail" id="followTrajectoryCommand(com.pathplanner.lib.PathPlannerTrajectory,boolean,boolean)">
 <h3>followTrajectoryCommand</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">edu.wpi.first.wpilibj2.command.Command</span>&nbsp;<span class="element-name">followTrajectoryCommand</span><wbr><span class="parameters">(com.pathplanner.lib.PathPlannerTrajectory&nbsp;traj,
  boolean&nbsp;isFirstPath,
  boolean&nbsp;useAllianceColor)</span></div>
+<div class="block">This method generates a command that will cause the robot to follow the specificed trajectory</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>traj</code> - the desired trajectory/path to follow</dd>
+<dd><code>isFirstPath</code> - set to true if the robot is at the starting point of the trajectory. When
+     true, the pose is reset to te starting pose of the trajectory.</dd>
+<dd><code>useAllianceColor</code> - set to true to translate the trajectory to account for any
+     alliance-specific non-symmetrical field differences. (E.g. 2023 ChargedUp)</dd>
+<dt>Returns:</dt>
+<dd>the command that, when executed, will control the robot to follow the desired
+     trajectory</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="stop()">
 <h3>stop</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">stop</span>()</div>
-</section>
-</li>
-<li>
-<section class="detail" id="setChassisSpeeds(edu.wpi.first.math.kinematics.ChassisSpeeds)">
-<h3>setChassisSpeeds</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setChassisSpeeds</span><wbr><span class="parameters">(edu.wpi.first.math.kinematics.ChassisSpeeds&nbsp;chassisSpeeds)</span></div>
+<div class="block">Stops all movement of the drivetrain</div>
 </section>
 </li>
 </ul>

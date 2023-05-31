@@ -83,6 +83,12 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">DriveVision</span>
 <span class="extends-implements">extends edu.wpi.first.wpilibj2.command.CommandBase</span></div>
+<div class="block">This class implements a command that uses PhotonVision AprilTag tracking to automatically turn
+ the robot to face the nearest/best AprilTag. If no AprilTags are detected, the robot stops
+ moving. This command never exits, so must be explicitly stopped.
+
+ <p>Note: This class assumes there is a camera named "photonvision" and is calibrated/configured
+ to detect AprilTags</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
