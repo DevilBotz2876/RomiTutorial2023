@@ -4,10 +4,12 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.SysId;
 import frc.robot.subsystems.drive.DriveIO;
 import frc.robot.subsystems.drive.DriveIOInputsAutoLogged;
 import org.littletonrobotics.junction.Logger;
@@ -24,6 +26,11 @@ public class Drivetrain extends SubsystemBase {
   private double yAccelerationOffset;
   private double zAccelerationOffset;
 
+  // START: Setup Feedforward
+  private SimpleMotorFeedforward leftFeedforward;
+  private SimpleMotorFeedforward rightFeedforward;
+  // END: Setup Feedforward
+
   /**
    * Creates a new Drivetrain.
    *
@@ -31,6 +38,19 @@ public class Drivetrain extends SubsystemBase {
    */
   public Drivetrain(DriveIO io) {
     this.io = io;
+
+    // START: Setup Feedforward
+    leftFeedforward =
+        new SimpleMotorFeedforward(
+            SysId.Drive.leftKsVolts,
+            SysId.Drive.leftKvVoltSecondsPerMeter,
+            SysId.Drive.leftKaVoltSecondsSquaredPerMeter);
+    rightFeedforward =
+        new SimpleMotorFeedforward(
+            SysId.Drive.rightKsVolts,
+            SysId.Drive.rightKvVoltSecondsPerMeter,
+            SysId.Drive.rightKaVoltSecondsSquaredPerMeter);
+    // END: Setup Feedforward
   }
 
   /**
@@ -50,6 +70,22 @@ public class Drivetrain extends SubsystemBase {
         wheelSpeeds.left * RobotController.getBatteryVoltage(),
         wheelSpeeds.right * RobotController.getBatteryVoltage());
   }
+
+  // START: Setup Feedforward
+  /**
+   * This method is similar to {@link #arcadeDrive(double, double)}, with the following differences:
+   *
+   * <ul>
+   *   <li>uses feedforward control to compute voltages based on the desired left/right velocity
+   * </ul>
+   */
+  public void arcadeDriveFeedforward(double xaxisSpeed, double zaxisRotate) {
+    var wheelSpeeds = DifferentialDrive.arcadeDriveIK(xaxisSpeed, zaxisRotate, true);
+    io.setDriveVoltage(
+        leftFeedforward.calculate(wheelSpeeds.left * SysId.Drive.maxSpeedMetersPerSecond),
+        rightFeedforward.calculate(wheelSpeeds.right * SysId.Drive.maxSpeedMetersPerSecond));
+  }
+  // END: Setup Feedforward
 
   /** Reset the encoders */
   public void resetEncoders() {
