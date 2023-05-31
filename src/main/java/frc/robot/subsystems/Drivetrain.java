@@ -8,7 +8,10 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
+import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -47,6 +50,11 @@ public class Drivetrain extends SubsystemBase {
       new DifferentialDriveOdometry(new Rotation2d(), 0.0, 0.0);
   private Field2d field = new Field2d();
   // END: Setup Odometry
+
+  // START: Setup Kinematics
+  DifferentialDriveKinematics kinematics =
+      new DifferentialDriveKinematics(SysId.Drive.trackWidthMeters);
+  // END: Setup Kinematics
 
   /**
    * Creates a new Drivetrain.
@@ -137,6 +145,46 @@ public class Drivetrain extends SubsystemBase {
                 getRightVelocityMeters(), wheelSpeeds.right * SysId.Drive.maxSpeedMetersPerSecond));
   }
   // END: Setup PID Control feedback loop
+
+  // START: Setup kinematics
+  private void setDriveSpeed(DifferentialDriveWheelSpeeds speeds) {
+    io.setDriveVoltage(
+        leftFeedforward.calculate(speeds.leftMetersPerSecond)
+            + leftVelocityPid.calculate(getLeftVelocityMeters(), speeds.leftMetersPerSecond),
+        rightFeedforward.calculate(speeds.rightMetersPerSecond)
+            + rightVelocityPid.calculate(getRightVelocityMeters(), speeds.rightMetersPerSecond));
+  }
+
+  /**
+   * This method is similar to {@link #arcadeDriveClosedLoop(double, double)}, with the following
+   * differences:
+   *
+   * <ul>
+   *   <li>refactored to use DifferentialDriveWheelSpeeds kinematics
+   * </ul>
+   */
+  public void arcadeDriveKinematics(double xaxisSpeed, double zaxisRotate) {
+    var wheelSpeeds = DifferentialDrive.arcadeDriveIK(xaxisSpeed, zaxisRotate, true);
+    setDriveSpeed(
+        new DifferentialDriveWheelSpeeds(
+            wheelSpeeds.left * SysId.Drive.maxSpeedMetersPerSecond,
+            wheelSpeeds.right * SysId.Drive.maxSpeedMetersPerSecond));
+  }
+
+  /**
+   * This method allows the use drivetrain agnostic ChassisSpeeds to move the drivetrain. This
+   * allows upper level code to control the drivetrain without any assumption on the drivetrain type
+   * (e.g. Differential, Swerve, Mecanum, etc.). Kinematics are used to convert chassis speeds to
+   * values useful for the actual drivetrain implementation.
+   *
+   * @param chassisSpeeds the desired chassis speed
+   */
+  public void setChassisSpeeds(ChassisSpeeds chassisSpeeds) {
+    var wheelSpeeds = kinematics.toWheelSpeeds(chassisSpeeds);
+
+    setDriveSpeed(wheelSpeeds);
+  }
+  // END: Setup kinematics
 
   /** Reset the encoders */
   public void resetEncoders() {
