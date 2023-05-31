@@ -430,4 +430,11 @@ public class Drivetrain extends SubsystemBase {
             ));
   }
   // END: Setup pathplanner
+
+  // START: Setup PhotonVision
+  /** Stops all movement of the drivetrain */
+  public void stop() {
+    io.setDriveVoltage(0, 0);
+  }
+  // END: Setup PhotonVision
 }
