@@ -10,7 +10,7 @@ Before continuting, you must follow the [PhotonVision Romi Installation](https:/
 
 Unfortunately, the installation process requires the use of an actual ethernet connection to download the PhotonVision binaries from the internet.  When plugging in the Romi's Raspberry Pi via ethernet, the address will very likely *not* be `10.0.0.2`.  Instead, an IP address will be assigned.  Since the Raspberry Pi doesn't have a display, it's not obvious how to get the IP address.  There are lots of ways to find the IP address. One tool you can use is [Angry IP Scanner](https://angryip.org/) running a PC that is *on the same network* to search for the Raspberry Pi IP address.
 
-If PhotonVision is successfully installed, you should be able to access the GUI at: `http://10.0.0.2:5800/`
+If PhotonVision is successfully installed, you should be able to access the GUI at: `http://photonvision.local:5800/`
 
 #### Summary of [changes](https://github.com/BHSRobotix/RomiTutorial2023/commit/896c498868d95fc60e0cd397154a503722345a0c?diff=split):
 1. `RobotContainer.java`
