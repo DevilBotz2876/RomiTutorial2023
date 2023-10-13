@@ -114,6 +114,6 @@ public class RobotContainer {
    */
   public Command getArcadeDriveCommand() {
     return new ArcadeDrive(
-        m_drivetrain, () -> -m_controller.getLeftY(), () -> -m_controller.getLeftX());
+        m_drivetrain, () -> m_controller.getLeftY(), () -> -m_controller.getLeftX());
   }
 }
