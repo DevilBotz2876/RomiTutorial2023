@@ -17,12 +17,14 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.SysId;
 import frc.robot.commands.ArcadeDrive;
+import frc.robot.commands.ArmCommand;
 import frc.robot.commands.AutonomousDistance;
 import frc.robot.commands.AutonomousTime;
 import frc.robot.commands.DriveVision;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.OnBoardIO;
 import frc.robot.subsystems.OnBoardIO.ChannelMode;
+import frc.robot.subsystems.ServoSubsystem;
 import frc.robot.subsystems.drive.DriveIORomi;
 
 /**
@@ -52,6 +54,7 @@ public class RobotContainer {
   // - PWM 3 (mapped to Arduino Pin 22)
   //
   // Your subsystem configuration should take the overlays into account
+  private final ServoSubsystem m_servo0 = new ServoSubsystem(3);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -69,6 +72,8 @@ public class RobotContainer {
     // Default command is arcade drive. This will run unless another command
     // is scheduled over it.
     m_drivetrain.setDefaultCommand(getArcadeDriveCommand());
+
+    m_servo0.setDefaultCommand(new ArmCommand(m_servo0, () -> (-m_controller.getRightY())));
 
     // Example of how to use the onboard IO
     Trigger onboardButtonA = new Trigger(m_onboardIO::getButtonAPressed);
