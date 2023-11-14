@@ -9,16 +9,20 @@ import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPlannerTrajectory;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.SysId;
 import frc.robot.commands.ArcadeDrive;
 import frc.robot.commands.AutonomousDistance;
 import frc.robot.commands.AutonomousTime;
+import frc.robot.commands.DriveSwitchCommand;
 import frc.robot.commands.DriveVision;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.OnBoardIO;
@@ -37,7 +41,7 @@ public class RobotContainer {
   private final OnBoardIO m_onboardIO = new OnBoardIO(ChannelMode.INPUT, ChannelMode.INPUT);
 
   // Assumes a XBox controller plugged into channnel 0
-  private final XboxController m_controller = new XboxController(0);
+  private final CommandXboxController m_controller = new CommandXboxController(0);
 
   // Create SmartDashboard chooser for autonomous routines
   private final SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -55,7 +59,8 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    // Configure the button bindings
+     // Configure the button bindings
+    m_drivetrain.setDefaultCommand(new ArcadeDrive(m_drivetrain, () -> -m_controller.getLeftY(), () -> m_controller.getLeftX()));
     configureButtonBindings();
   }
 
@@ -66,6 +71,7 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+    m_controller.povUp().onTrue(new DriveSwitchCommand(m_drivetrain, m_controller));
     // Default command is arcade drive. This will run unless another command
     // is scheduled over it.
     m_drivetrain.setDefaultCommand(getArcadeDriveCommand());
@@ -93,8 +99,8 @@ public class RobotContainer {
     SmartDashboard.putData(m_chooser);
 
     // START: Setup photonvision
-    Trigger xButton = new JoystickButton(m_controller, XboxController.Button.kX.value);
-    xButton.whileTrue(new DriveVision(m_drivetrain));
+    //Trigger xButton = new JoystickButton(m_controller, XboxController.Button.kX.value);
+    //xButton.whileTrue(new DriveVision(m_drivetrain));
     // END: Setup photonvision
   }
 
