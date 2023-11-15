@@ -127,6 +127,13 @@ public class Drivetrain extends SubsystemBase {
         wheelSpeeds.right * RobotController.getBatteryVoltage());
   }
 
+  public void tankDrive(double xaxisSpeed, double zaxisRotate) {
+    var wheelSpeeds = DifferentialDrive.arcadeDriveIK(xaxisSpeed, zaxisRotate, true);
+    io.setDriveVoltage(
+        wheelSpeeds.left * RobotController.getBatteryVoltage(),
+        wheelSpeeds.right * RobotController.getBatteryVoltage());
+  }
+
   // START: Setup Feedforward
   /**
    * This method is similar to {@link #arcadeDrive(double, double)}, with the following differences:
@@ -189,6 +196,13 @@ public class Drivetrain extends SubsystemBase {
             wheelSpeeds.right * SysId.Drive.maxSpeedMetersPerSecond));
   }
 
+  public void tankDriveKinematics(double xaxisSpeed, double zaxisRotate) {
+    var wheelSpeeds = DifferentialDrive.tankDriveIK(xaxisSpeed, zaxisRotate, true);
+    setDriveSpeed(
+        new DifferentialDriveWheelSpeeds(
+            wheelSpeeds.left * SysId.Drive.maxSpeedMetersPerSecond,
+            wheelSpeeds.right * SysId.Drive.maxSpeedMetersPerSecond));
+  }
   /**
    * This method allows the use drivetrain agnostic ChassisSpeeds to move the drivetrain. This
    * allows upper level code to control the drivetrain without any assumption on the drivetrain type

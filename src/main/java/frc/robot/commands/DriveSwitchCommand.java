@@ -23,7 +23,7 @@ public class DriveSwitchCommand extends InstantCommand {
       if (toggleState) {
         // Switch to arcade
         m_romiDrivetrain.setDefaultCommand(
-          new ArcadeDrive(m_romiDrivetrain, () -> -m_controller.getLeftY(), () -> -m_controller.getRightY())
+          new TankDrive(m_romiDrivetrain, () -> -m_controller.getLeftY(), () -> -m_controller.getRightY())
         );
       } else {
         // Switch to the second drive mode
