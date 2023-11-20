@@ -21,10 +21,11 @@ import frc.robot.commands.ArmCommand;
 import frc.robot.commands.AutonomousDistance;
 import frc.robot.commands.AutonomousTime;
 import frc.robot.commands.DriveVision;
+import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.OnBoardIO;
 import frc.robot.subsystems.OnBoardIO.ChannelMode;
-import frc.robot.subsystems.ServoSubsystem;
+import frc.robot.subsystems.arm.ArmIORomi;
 import frc.robot.subsystems.drive.DriveIORomi;
 
 /**
@@ -54,7 +55,7 @@ public class RobotContainer {
   // - PWM 3 (mapped to Arduino Pin 22)
   //
   // Your subsystem configuration should take the overlays into account
-  private final ServoSubsystem m_servo0 = new ServoSubsystem(3);
+  private final Arm m_arm = new Arm(new ArmIORomi());
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -73,7 +74,9 @@ public class RobotContainer {
     // is scheduled over it.
     m_drivetrain.setDefaultCommand(getArcadeDriveCommand());
 
-    m_servo0.setDefaultCommand(new ArmCommand(m_servo0, () -> (-m_controller.getRightY())));
+    m_arm.setDefaultCommand(
+        new ArmCommand(
+            m_arm, () -> (-m_controller.getRightY()), () -> (-m_controller.getRightX())));
 
     // Example of how to use the onboard IO
     Trigger onboardButtonA = new Trigger(m_onboardIO::getButtonAPressed);
