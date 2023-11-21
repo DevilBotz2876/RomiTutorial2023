@@ -14,7 +14,7 @@
     "**/.factorypath": true,
     "**/*~": true
   },
-  "wpilib.skipSelectSimulateExtension": true,
+  "wpilib.skipSelectSimulateExtension": false,
   "java.test.config": [
     {
       "name": "WPIlibUnitTests",
@@ -26,5 +26,6 @@
       }
     },
   ],
-  "java.test.defaultConfig": "WPIlibUnitTests"
+  "java.test.defaultConfig": "WPIlibUnitTests",
+  "wpilib.selectDefaultSimulateExtension": true
 }
