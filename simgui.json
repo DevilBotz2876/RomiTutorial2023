@@ -18,11 +18,13 @@
       "/SmartDashboard/SendableChooser[0]": "String Chooser"
     }
   },
-  "NetworkTables": {
-    "transitory": {
-      "SmartDashboard": {
-        "open": false
-      }
-    }
+  "NetworkTables Info": {
+    "Server": {
+      "Publishers": {
+        "open": true
+      },
+      "open": true
+    },
+    "visible": true
   }
 }
