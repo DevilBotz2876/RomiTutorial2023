@@ -6,18 +6,28 @@ import frc.robot.subsystems.Arm;
 import java.util.function.DoubleSupplier;
 
 public class ArmCommand extends CommandBase {
-  private final Arm m_arm; // the arm subsystem used by this comment
-  private final DoubleSupplier m_baseSpeed; // the supplier of the desired speed
-  private final double m_defaultPosition =
-      0.5; // default start position for the arm when the command is first scheduled
-  private final double m_deadband =
-      0.05; // to prevent stick drift, this value sets the min absolute value the speed needs to be
+  // the arm subsystem used by this comment
+  private final Arm m_arm;
+
+  // the supplier of the desired speed
+  private final DoubleSupplier m_baseSpeed;
+
+  // default start position for the arm when the command is first scheduled
+  private final double m_defaultPosition = 0.5;
+
+  // to prevent stick drift, this value sets the min absolute value the speed needs to be
   // before we assume it is not zero
-  private final double m_speedScale =
-      16; // to reduce stick sensitivity, this value indicates how much to scale the returned speed
-  // by
-  private final double m_minBaseRange = -1; // min range for the arm's base
-  private final double m_maxBaseRange = 1; // max range for the arm's base
+  private final double m_deadband = 0.05;
+
+  // to reduce stick sensitivity, this value indicates how much to scale the requested
+  // speed.
+  private final double m_speedScale = 16;
+
+  // min range for the arm's base
+  private final double m_minBaseRange = -1;
+
+  // max range for the arm's base
+  private final double m_maxBaseRange = 1;
 
   public ArmCommand(Arm arm, DoubleSupplier baseSpeed) {
     m_arm = arm;
@@ -37,8 +47,10 @@ public class ArmCommand extends CommandBase {
   public void execute() {
     // Variable that will store the new calculated arm position
     double newArmPosition;
+
     // Determine the requested speed, but ignoring inputs near-zero (i.e. +/= m_deadband)
     double currentShoulderSpeed = MathUtil.applyDeadband(m_baseSpeed.getAsDouble(), m_deadband);
+
     // Scale the speed as desired to reduce sensitivity
     currentShoulderSpeed /= m_speedScale;
 

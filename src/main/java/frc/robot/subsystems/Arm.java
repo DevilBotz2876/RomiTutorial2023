@@ -16,6 +16,10 @@ public class Arm extends SubsystemBase {
   /**
    * Moves the arm base to the desired position. -1.0 is max down, and 1.0 is max up
    *
+   * <p>Note: The concept of "up and down" depends on how the servo is mounted to the arm. E.g. if
+   * the servo is flipped, the directions would be reversed. This module abstracts the hardware
+   * implementation details and follows the convention of 1.0 is up.
+   *
    * @param position desired target position for arm base [-1.0 to 1.0]
    */
   public void setArmBasePosition(double position) {
