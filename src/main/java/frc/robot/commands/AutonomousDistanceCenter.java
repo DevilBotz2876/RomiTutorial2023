@@ -7,18 +7,19 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.Drivetrain;
 
-public class AutonomousDistance extends SequentialCommandGroup {
+public class AutonomousDistanceCenter extends SequentialCommandGroup {
   /**
    * Creates a new Autonomous Drive based on distance. This will drive out for a specified distance,
    * turn around and drive back.
    *
    * @param drivetrain The drivetrain subsystem on which this command will run
    */
-  public AutonomousDistance(Drivetrain drivetrain) {
+  public AutonomousDistanceCenter(Drivetrain drivetrain) {
     addCommands(
-        new DriveDistance(-0.5, 10, drivetrain),
-        new TurnDegrees(-0.5, 180, drivetrain),
-        new DriveDistance(-0.5, 10, drivetrain),
-        new TurnDegrees(0.5, 180, drivetrain));
+        new DriveDistance(0.75, 14.5, drivetrain),
+        new TurnDegrees(-0.35, 90, drivetrain),
+        new DriveDistance(0.5, 4.5, drivetrain)
+        //new TurnDegrees(0.5, 180, drivetrain)
+        );
   }
 }
