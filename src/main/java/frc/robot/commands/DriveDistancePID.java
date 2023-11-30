@@ -26,7 +26,7 @@ public class DriveDistancePID extends CommandBase {
     m_distance = inches;
     m_speed = speed;
     m_drive = drive;
-    anglePID = new PIDController(0.001, 0, 0);
+    anglePID = new PIDController(0.0001, 0, 0);
     addRequirements(drive);
   }
 
