@@ -14,9 +14,9 @@ public class Arm extends SubsystemBase {
   // private final Servo m_armElbowServo = new Servo(2);
 
   /**
-   * Moves the arm base to the desired position. -1.0 is max down, and 1.0 is max up
+   * Moves the arm base to the desired position. 0.0 is max down and 1.0 is max up
    *
-   * @param position desired target position for arm base [-1.0 to 1.0]
+   * @param position desired target position for arm base [0.0 to 1.0]
    */
   public void setArmBasePosition(double position) {
     // Note: This code doesn't validate the requested position.  If we don't want the arm to move

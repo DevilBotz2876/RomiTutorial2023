@@ -16,7 +16,7 @@ public class ArmCommand extends CommandBase {
   private final double m_speedScale =
       16; // to reduce stick sensitivity, this value indicates how much to scale the returned speed
   // by
-  private final double m_minBaseRange = -1; // min range for the arm's base
+  private final double m_minBaseRange = 0; // min range for the arm's base
   private final double m_maxBaseRange = 1; // max range for the arm's base
 
   public ArmCommand(Arm arm, DoubleSupplier baseSpeed) {
@@ -38,12 +38,12 @@ public class ArmCommand extends CommandBase {
     // Variable that will store the new calculated arm position
     double newArmPosition;
     // Determine the requested speed, but ignoring inputs near-zero (i.e. +/= m_deadband)
-    double currentShoulderSpeed = MathUtil.applyDeadband(m_baseSpeed.getAsDouble(), m_deadband);
+    double newBasePositionDelta = MathUtil.applyDeadband(m_baseSpeed.getAsDouble(), m_deadband);
     // Scale the speed as desired to reduce sensitivity
-    currentShoulderSpeed /= m_speedScale;
+    newBasePositionDelta /= m_speedScale;
 
     // Calculate the arm position by adding the computer speed to the arm base's current position
-    newArmPosition = m_arm.getArmBasePosition() + currentShoulderSpeed;
+    newArmPosition = m_arm.getArmBasePosition() + newBasePositionDelta;
 
     // Clamp the arm's upper/lower position to the min/max range allowed
     newArmPosition = MathUtil.clamp(newArmPosition, m_minBaseRange, m_maxBaseRange);
