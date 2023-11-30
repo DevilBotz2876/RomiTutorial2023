@@ -105,8 +105,9 @@ public class RobotContainer {
 
     // START: Setup arm
     // Use the controller's right stick's forward/back (Y-axis) to control the arm base speed
-    // In this case, we want "forward" = "arm up", but forward is reported as a negative value from
-    // the stick, so we negate the returned value.
+    // In this case, we want "forward" = "arm up" = positive value, but forward is reported as a
+    // negative value from
+    // the controller's stick, so we negate the returned value.
     m_arm.setDefaultCommand(new ArmCommand(m_arm, () -> -m_controller.getRightY()));
     // END: Setup arm
   }
