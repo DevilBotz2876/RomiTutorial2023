@@ -15,6 +15,9 @@ public class ArmCommand extends CommandBase {
   // default start position for the arm when the command is first scheduled
   private final double m_defaultPosition = 0.5;
 
+  private final double m_deadband =
+      0.05; // to prevent stick drift, this value sets the min absolute value the speed needs to be
+
   // to prevent stick drift, this value sets the min absolute value the speed needs to be
   // before we assume it is not zero
   private final double m_speedScale =
