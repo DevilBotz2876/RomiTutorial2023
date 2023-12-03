@@ -44,6 +44,11 @@ public class TurnDegreesPID extends CommandBase {
   public void execute() {
     System.out.println(-speedPID.calculate(m_drive.getGyroAngleY()));
     m_drive.arcadeDrive(-speedPID.calculate(m_drive.getGyroAngleY()), m_angleSpeed);
+
+    double currentGyroAngle = m_drive.getGyroAngleY();
+    double pidOutput = -speedPID.calculate(currentGyroAngle);
+    System.out.println("Gyro Angle: " + currentGyroAngle + ", PID Output: " + pidOutput);
+
   }
 
   // Called once the command ends or is interrupted.
@@ -55,19 +60,11 @@ public class TurnDegreesPID extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    /* Need to convert distance travelled to degrees. The Standard
-       Romi Chassis found here, https://www.pololu.com/category/203/romi-chassis-kits,
-       has a wheel placement diameter (149 mm) - width of the wheel (8 mm) = 141 mm
-       or 5.551 inches. We then take into consideration the width of the tires.
-    */
-    double inchPerDegree = Math.PI * 5.551 / 360;
-    // Compare distance travelled from start to distance based on degree turn
-    return getAverageTurningDistance() >= (inchPerDegree * m_degrees);
-  }
+    double currentGyroAngle = m_drive.getGyroAngleY();
+    double targetGyroAngle = m_drive.getGyroAngleY() + m_degrees;
 
-  private double getAverageTurningDistance() {
-    double leftDistance = Math.abs(m_drive.getLeftDistanceInch());
-    double rightDistance = Math.abs(m_drive.getRightDistanceInch());
-    return (leftDistance + rightDistance) / 2.0;
+    // Check if the current gyro angle is greater than or equal to the target gyro angle
+    return currentGyroAngle >= targetGyroAngle;
+
   }
 }
