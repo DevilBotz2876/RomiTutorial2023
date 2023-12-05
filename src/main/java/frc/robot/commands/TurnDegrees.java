@@ -58,6 +58,7 @@ public class TurnDegrees extends CommandBase {
     double inchPerDegree = Math.PI * 5.551 / 360;
     // Compare distance travelled from start to distance based on degree turn
     return getAverageTurningDistance() >= (inchPerDegree * m_degrees);
+
   }
 
   private double getAverageTurningDistance() {
