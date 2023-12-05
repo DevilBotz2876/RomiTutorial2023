@@ -19,6 +19,7 @@ import frc.robot.Constants.SysId;
 import frc.robot.commands.ArcadeDrive;
 <<<<<<< .merge_file_a18172
 import frc.robot.commands.AutonomousDistanceCenter;
+import frc.robot.commands.AutonomousDistanceCenterFast;
 import frc.robot.commands.AutonomousDistanceRightSide;
 =======
 import frc.robot.commands.ArmCommand;
@@ -90,6 +91,7 @@ public class RobotContainer {
     // Setup SmartDashboard options
     m_chooser.setDefaultOption("Auto Routine Distance Center", new AutonomousDistanceCenter(m_drivetrain));
     m_chooser.addOption("Auto Routine Right Side", new AutonomousDistanceRightSide(m_drivetrain));
+    m_chooser.addOption("Auto Routine Center Fast", new AutonomousDistanceCenterFast(m_drivetrain));
 
     // START: Setup pathplanner
     PathPlannerTrajectory traj =
