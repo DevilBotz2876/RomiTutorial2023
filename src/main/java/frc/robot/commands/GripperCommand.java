@@ -1,6 +1,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Gripper;
 import java.util.function.DoubleSupplier;
@@ -21,7 +22,7 @@ public class GripperCommand extends CommandBase {
   // to prevent stick drift, this value sets the min absolute value the speed needs to be
   // before we assume it is not zero
   private final double m_speedScale =
-      16; // to reduce stick sensitivity, this value indicates how much to scale the returned speed
+      64; // to reduce stick sensitivity, this value indicates how much to scale the returned speed
   // by
   private final double m_minBaseRange = 0; // min range for the gripper's base
   private final double m_maxBaseRange = 1; // max range for the gripper's base
@@ -60,5 +61,8 @@ public class GripperCommand extends CommandBase {
 
     // Finally, set the gripper base positon to the new calculated gripper position.
     m_gripper.setClawPosition(newClawPosition);
+
+    SmartDashboard.putNumber("Gripper Position", m_gripper.getClawPosition());
+    SmartDashboard.putNumber("New Gripper Position", newClawPosition);
   }
 }

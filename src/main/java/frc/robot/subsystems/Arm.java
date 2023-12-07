@@ -7,7 +7,7 @@ public class Arm extends SubsystemBase {
   // This code assumes we are using the ROMI's external IO configuration and the arm base servo is
   // connected to Romi Pin EXT4 which is configured as PWM and mapped to port 3
   // https://docs.wpilib.org/en/stable/docs/romi-robot/web-ui.html#external-io-configuration
-  private final Servo m_armBaseServo = new Servo(3);
+  private final Servo m_armBaseServo = new Servo(2);
 
   // Note: If you have a multi-axis arm, you could create another Servo object using a differemt PWM
   // channel and add the corresponding methods for controlling the position.

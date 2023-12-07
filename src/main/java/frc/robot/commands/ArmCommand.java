@@ -24,7 +24,7 @@ public class ArmCommand extends CommandBase {
       16; // to reduce stick sensitivity, this value indicates how much to scale the returned speed
   // by
   private final double m_minBaseRange = 0; // min range for the arm's base
-  private final double m_maxBaseRange = 1; // max range for the arm's base
+  private final double m_maxBaseRange = 0.5; // max range for the arm's base
 
   public ArmCommand(Arm arm, DoubleSupplier baseSpeed) {
     m_arm = arm;
