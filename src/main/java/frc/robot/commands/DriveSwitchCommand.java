@@ -18,18 +18,18 @@ public class DriveSwitchCommand extends InstantCommand {
     @Override
     public void initialize() {
       toggleState = !toggleState;
-  
+    
       if (toggleState) {
-        // Switch to arcade
+        // Switch to TankDrive
         m_romiDrivetrain.setDefaultCommand(
           new TankDrive(m_romiDrivetrain, () -> -m_controller.getLeftY(), () -> -m_controller.getRightY())
         );
       } else {
-        // Switch to the second drive mode
+        // Switch to ArcadeDrive
         m_romiDrivetrain.setDefaultCommand(
           new ArcadeDrive(m_romiDrivetrain, () -> -m_controller.getLeftY(), () -> m_controller.getLeftX())
         );
       }
-    }
+    }    
   }
   

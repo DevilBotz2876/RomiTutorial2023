@@ -10,24 +10,24 @@ import java.util.function.Supplier;
 
 public class TankDrive extends CommandBase {
   private final Drivetrain m_drivetrain;
-  private final Supplier<Double> m_xaxisSpeedSupplier;
-  private final Supplier<Double> m_zaxisRotateSupplier;
+  private final Supplier<Double> m_rightZaxisRotateSupplier;
+  private final Supplier<Double> m_leftZaxisSpeedSupplier;
 
   /**
-   * Creates a new ArcadeDrive. This command will drive your robot according to the speed supplier
+   * Creates a new Tank Drive. This command will drive your robot according to the speed supplier
    * lambdas. This command does not terminate.
    *
    * @param drivetrain The drivetrain subsystem on which this command will run
    * @param xaxisSpeedSupplier Lambda supplier of forward/backward speed
-   * @param zaxisRotateSupplier Lambda supplier of rotational speed
+   * @param leftZaxisSpeedSupplier Lambda supplier of rotational speed
    */
   public TankDrive(
       Drivetrain drivetrain,
-      Supplier<Double> xaxisSpeedSupplier,
-      Supplier<Double> zaxisRotateSupplier) {
+      Supplier<Double> leftZaxisSpeedSupplier,
+      Supplier<Double> rightZaxisRotateSupplier) {
     m_drivetrain = drivetrain;
-    m_xaxisSpeedSupplier = xaxisSpeedSupplier;
-    m_zaxisRotateSupplier = zaxisRotateSupplier;
+    m_leftZaxisSpeedSupplier = leftZaxisSpeedSupplier;
+    m_rightZaxisRotateSupplier = rightZaxisRotateSupplier;
     addRequirements(drivetrain);
   }
 
@@ -38,7 +38,7 @@ public class TankDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_drivetrain.tankDriveKinematics(m_xaxisSpeedSupplier.get(), m_zaxisRotateSupplier.get());
+    m_drivetrain.tankDriveKinematics(m_leftZaxisSpeedSupplier.get(), m_rightZaxisRotateSupplier.get());
   }
 
   // Called once the command ends or is interrupted.

@@ -34,7 +34,7 @@ public class DriveDistancePID extends CommandBase {
   @Override
   public void initialize() {
     m_drive.resetGyro();
-    anglePID.setSetpoint(0);
+    anglePID.setSetpoint(m_drive.getGyroAngleZ());
     m_drive.arcadeDrive(0, 0);
     m_drive.resetEncoders();
   }
