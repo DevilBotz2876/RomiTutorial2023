@@ -7,10 +7,11 @@ import frc.robot.subsystems.Drivetrain;
 public class AutoRed2 extends SequentialCommandGroup {
     public AutoRed2(Drivetrain drivetrain) {
       addCommands(
-          new DriveDistance(0.25, 7.5, drivetrain),
-          new TurnDegrees(0.5, 90, drivetrain),
-          new DriveDistance(0.25, 14, drivetrain)
-          //new TurnDegrees(0.5, 90, drivetrain),
-          /*new DriveDistance(0.25, 1, drivetrain)*/);
+          new DriveDistance(0.5, 7.5, drivetrain),
+          new TurnDegrees(-0.4, 80, drivetrain),
+          new DriveDistance(-1, 4, drivetrain),
+          new DriveDistance(-0.5, 4, drivetrain),
+          new DriveDistance(-0.5, 2, drivetrain),
+          new DriveDistance(0.5, 0.5, drivetrain));
     }
   }
