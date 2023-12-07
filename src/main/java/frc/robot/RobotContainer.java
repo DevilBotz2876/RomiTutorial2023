@@ -17,16 +17,12 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.SysId;
 import frc.robot.commands.ArcadeDrive;
-<<<<<<< .merge_file_a18172
 import frc.robot.commands.AutonomousDistanceCenter;
-import frc.robot.commands.AutonomousDistanceCenterFast;
 import frc.robot.commands.AutonomousDistanceRightSide;
-=======
-import frc.robot.commands.ArmCommand;
-import frc.robot.commands.AutonomousDistance;
-import frc.robot.commands.AutonomousTime;
->>>>>>> .merge_file_a11416
-import frc.robot.commands.DriveVision;
+
+ import frc.robot.commands.ArmCommand;
+
+ import frc.robot.commands.DriveVision;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.OnBoardIO;
@@ -91,7 +87,6 @@ public class RobotContainer {
     // Setup SmartDashboard options
     m_chooser.setDefaultOption("Auto Routine Distance Center", new AutonomousDistanceCenter(m_drivetrain));
     m_chooser.addOption("Auto Routine Right Side", new AutonomousDistanceRightSide(m_drivetrain));
-    m_chooser.addOption("Auto Routine Center Fast", new AutonomousDistanceCenterFast(m_drivetrain));
 
     // START: Setup pathplanner
     PathPlannerTrajectory traj =
