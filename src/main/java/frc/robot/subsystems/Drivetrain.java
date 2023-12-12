@@ -128,7 +128,7 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public void tankDrive(double xaxisSpeed, double zaxisRotate) {
-    var wheelSpeeds = DifferentialDrive.arcadeDriveIK(xaxisSpeed, zaxisRotate, true);
+    var wheelSpeeds = DifferentialDrive.tankDriveIK(xaxisSpeed, zaxisRotate, true);
     io.setDriveVoltage(
         wheelSpeeds.left * RobotController.getBatteryVoltage(),
         wheelSpeeds.right * RobotController.getBatteryVoltage());
@@ -196,8 +196,8 @@ public class Drivetrain extends SubsystemBase {
             wheelSpeeds.right * SysId.Drive.maxSpeedMetersPerSecond));
   }
 
-  public void tankDriveKinematics(double xaxisSpeed, double zaxisRotate) {
-    var wheelSpeeds = DifferentialDrive.tankDriveIK(xaxisSpeed, zaxisRotate, true);
+  public void tankDriveKinematics(double leftSpeed, double zaxisRotate) {
+    var wheelSpeeds = DifferentialDrive.tankDriveIK(leftSpeed, zaxisRotate, true);
     setDriveSpeed(
         new DifferentialDriveWheelSpeeds(
             wheelSpeeds.left * SysId.Drive.maxSpeedMetersPerSecond,
