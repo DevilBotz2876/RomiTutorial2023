@@ -11,7 +11,7 @@ public class Arm extends SubsystemBase {
 
   // Note: If you have a multi-axis arm, you could create another Servo object using a differemt PWM
   // channel and add the corresponding methods for controlling the position.
-  // private final Servo m_armElbowServo = new Servo(2);
+  private final Servo m_armElbowServo = new Servo(2);
 
   /**
    * Moves the arm base to the desired position. -1.0 is max down, and 1.0 is max up
@@ -26,6 +26,7 @@ public class Arm extends SubsystemBase {
     // Note: This code doesn't validate the requested position.  If we don't want the arm to move
     // within the entire range (e.g. due to physical constraints), we could clamp the position to
     // the min/max values before setting the servo's position
+    //System.out.println(position);
     m_armBaseServo.set(position);
   }
 
@@ -37,4 +38,12 @@ public class Arm extends SubsystemBase {
   public double getArmBasePosition() {
     return m_armBaseServo.get();
   }
-}
+
+  public void closeGripper() {
+    m_armElbowServo.set(0.18);
+  }
+  public void openGripper() {
+      m_armElbowServo.set(1);  
+    }
+  }
+

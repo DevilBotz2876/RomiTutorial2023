@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -104,6 +105,12 @@ public class RobotContainer {
     Trigger xButton = new JoystickButton(m_controller, XboxController.Button.kX.value);
     xButton.whileTrue(new DriveVision(m_drivetrain));
     // END: Setup photonvision
+
+    Trigger leftBumper = new JoystickButton(m_controller, XboxController.Button.kLeftBumper.value);
+    leftBumper.onTrue(new InstantCommand(() -> { m_arm.closeGripper(); }, m_arm));
+    Trigger rightBumper = new JoystickButton(m_controller, XboxController.Button.kRightBumper.value);
+    rightBumper.onTrue(new InstantCommand(() -> { m_arm.openGripper(); }, m_arm));
+
 
     // START: Setup arm
     // Use the controller's right stick's forward/back (Y-axis) to control the arm base speed
