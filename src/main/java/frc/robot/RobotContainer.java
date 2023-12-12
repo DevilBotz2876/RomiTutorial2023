@@ -110,7 +110,7 @@ public class RobotContainer {
     // In this case, we want "forward" = "arm up" = positive value, but forward is reported as a
     // negative value from
     // the controller's stick, so we negate the returned value.
-    m_arm.setDefaultCommand(new ArmCommand(m_arm, () -> -m_controller.getRightY()));
+    m_arm.setDefaultCommand(new ArmCommand(m_arm, () -> -m_controller.getLeftY()));
     // END: Setup arm
   }
 
@@ -130,6 +130,6 @@ public class RobotContainer {
    */
   public Command getArcadeDriveCommand() {
     return new ArcadeDrive(
-        m_drivetrain, () -> -m_controller.getLeftY(), () -> -m_controller.getLeftX());
+        m_drivetrain, () -> -m_controller.getRightY(), () -> -m_controller.getRightX());
   }
 }
