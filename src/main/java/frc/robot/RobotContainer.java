@@ -39,7 +39,8 @@ public class RobotContainer {
   private final OnBoardIO m_onboardIO = new OnBoardIO(ChannelMode.INPUT, ChannelMode.INPUT);
   // START: Setup arm
   // Create an arm sub-system
-  private final Arm m_arm = new Arm();
+  private final Arm m_arm_one = new Arm(2);
+  private final Arm m_arm_two = new Arm(3);
   // END: Setup arm
 
   // Assumes a XBox controller plugged into channnel 0
@@ -103,14 +104,21 @@ public class RobotContainer {
     xButton.whileTrue(new DriveVision(m_drivetrain));
     // END: Setup photonvision
 
+    Trigger aButton = new JoystickButton(m_controller, XboxController.Button.kA.value);
+    aButton.onTrue(new PrintCommand("Button A Pressed on XBOX controller"));
+    aButton.onFalse(new PrintCommand("Button A Released on XBOX controller"));
+    
     // START: Setup arm
     // Use the controller's right stick's forward/back (Y-axis) to control the arm base speed
     // In this case, we want "forward" = "arm up" = positive value, but forward is reported as a
     // negative value from
     // the controller's stick, so we negate the returned value.
-    m_arm.setDefaultCommand(new ArmCommand(m_arm, () -> -m_controller.getRightY()));
+    m_arm_one.setDefaultCommand(new ArmCommand(m_arm_one, () -> -m_controller.getRightX()));
+    m_arm_two.setDefaultCommand(new ArmCommand(m_arm_two, () -> -m_controller.getRightY()));
+
     // END: Setup arm
   }
+
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
