@@ -17,9 +17,11 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.SysId;
 import frc.robot.commands.ArcadeDrive;
+import frc.robot.commands.ArmCommand;
 import frc.robot.commands.AutonomousDistance;
 import frc.robot.commands.AutonomousTime;
 import frc.robot.commands.DriveVision;
+import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.OnBoardIO;
 import frc.robot.subsystems.OnBoardIO.ChannelMode;
@@ -35,6 +37,10 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final Drivetrain m_drivetrain = new Drivetrain(new DriveIORomi());
   private final OnBoardIO m_onboardIO = new OnBoardIO(ChannelMode.INPUT, ChannelMode.INPUT);
+  // START: Setup arm
+  // Create an arm sub-system
+  private final Arm m_arm = new Arm();
+  // END: Setup arm
 
   // Assumes a XBox controller plugged into channnel 0
   private final XboxController m_controller = new XboxController(0);
@@ -96,6 +102,14 @@ public class RobotContainer {
     Trigger xButton = new JoystickButton(m_controller, XboxController.Button.kX.value);
     xButton.whileTrue(new DriveVision(m_drivetrain));
     // END: Setup photonvision
+
+    // START: Setup arm
+    // Use the controller's right stick's forward/back (Y-axis) to control the arm base speed
+    // In this case, we want "forward" = "arm up" = positive value, but forward is reported as a
+    // negative value from
+    // the controller's stick, so we negate the returned value.
+    m_arm.setDefaultCommand(new ArmCommand(m_arm, () -> -m_controller.getRightY()));
+    // END: Setup arm
   }
 
   /**
