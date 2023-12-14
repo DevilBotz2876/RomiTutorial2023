@@ -111,9 +111,9 @@ public class RobotContainer {
     // In this case, we want "forward" = "arm up" = positive value, but forward is reported as a
     // negative value from
     // the controller's stick, so we negate the returned value.
-    m_arm.setDefaultCommand(new ArmCommand(m_arm, () -> m_controller.getRightX()));
+    m_arm.setDefaultCommand(new ArmCommand(m_arm, () -> m_controller.getRightY()));
     // END: Setup arm
-    m_gripper.setDefaultCommand(new GripperCommand(m_gripper, () -> m_controller.getRightY()));
+    m_gripper.setDefaultCommand(new GripperCommand(m_gripper, () -> m_controller.getRightX()));
   }
 
   /**
