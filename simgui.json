@@ -17,7 +17,13 @@
   },
   "NetworkTables": {
     "transitory": {
+      "Shuffleboard": {
+        "open": true
+      },
       "SmartDashboard": {
+        "SendableChooser[0]": {
+          "open": true
+        },
         "open": true
       }
     }

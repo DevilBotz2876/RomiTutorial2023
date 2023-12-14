@@ -22,10 +22,10 @@ public class GripperCommand extends CommandBase {
   // to prevent stick drift, this value sets the min absolute value the speed needs to be
   // before we assume it is not zero
   private final double m_speedScale =
-      64; // to reduce stick sensitivity, this value indicates how much to scale the returned speed
+      16; // to reduce stick sensitivity, this value indicates how much to scale the returned speed
   // by
-  private final double m_minBaseRange = 0; // min range for the gripper's base
-  private final double m_maxBaseRange = 1; // max range for the gripper's base
+  private final double m_minBaseRange = -1.50; // min range for the gripper's base
+  private final double m_maxBaseRange = 4.00; // max range for the gripper's base
 
   public GripperCommand(Gripper gripper, DoubleSupplier baseSpeed) {
     m_gripper = gripper;
