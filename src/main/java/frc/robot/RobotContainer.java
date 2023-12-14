@@ -17,6 +17,9 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.SysId;
 import frc.robot.commands.ArcadeDrive;
+import frc.robot.commands.AutoBlue1;
+import frc.robot.commands.AutoBlue2;
+import frc.robot.commands.AutoBlue3;
 import frc.robot.commands.AutoRed1;
 import frc.robot.commands.AutoRed2;
 import frc.robot.commands.AutoRed3;
@@ -87,6 +90,9 @@ public class RobotContainer {
     m_chooser.addOption("Auto Red 1", new AutoRed1(m_drivetrain));
     m_chooser.addOption("Auto Red 2", new AutoRed2(m_drivetrain));
     m_chooser.addOption("Auto Red 3", new AutoRed3(m_drivetrain));
+    m_chooser.addOption("Auto Blue 1", new AutoBlue1(m_drivetrain));
+    m_chooser.addOption("Auto Blue 2", new AutoBlue2(m_drivetrain));
+    m_chooser.addOption("Auto Blue 3", new AutoBlue3(m_drivetrain));
 
     // START: Setup pathplanner
     PathPlannerTrajectory traj =
