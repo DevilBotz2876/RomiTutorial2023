@@ -25,6 +25,7 @@ import frc.robot.commands.AutoRed2;
 import frc.robot.commands.AutoRed3;
 import frc.robot.commands.AutonomousDistance;
 import frc.robot.commands.AutonomousTime;
+import frc.robot.commands.DriveSpeedCommand;
 import frc.robot.commands.DriveSwitchCommand;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.OnBoardIO;
@@ -74,6 +75,7 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     m_controller.povUp().onTrue(new DriveSwitchCommand(m_drivetrain, m_controller));
+    m_controller.povDown().onTrue(new DriveSpeedCommand(m_drivetrain));
     // Default command is arcade drive. This will run unless another command
     // is scheduled over it.
     m_drivetrain.setDefaultCommand(getArcadeDriveCommand());

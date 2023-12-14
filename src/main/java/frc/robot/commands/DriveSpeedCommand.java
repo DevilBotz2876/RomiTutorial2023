@@ -9,7 +9,7 @@ public class DriveSpeedCommand extends InstantCommand {
     private double speed;
     private boolean toggleState = false; //preserved forever/ does not reset
   
-    public DriveSpeedCommand(Drivetrain drivetrain, double speed) {
+    public DriveSpeedCommand(Drivetrain drivetrain) {
       m_romiDrivetrain = drivetrain;
       this.speed = speed;
       addRequirements(drivetrain);
