@@ -12,6 +12,7 @@ public class ArcadeDrive extends CommandBase {
   private final Drivetrain m_drivetrain;
   private final Supplier<Double> m_xaxisSpeedSupplier;
   private final Supplier<Double> m_zaxisRotateSupplier;
+  private double speed;
 
   /**
    * Creates a new ArcadeDrive. This command will drive your robot according to the speed supplier
@@ -24,10 +25,11 @@ public class ArcadeDrive extends CommandBase {
   public ArcadeDrive(
       Drivetrain drivetrain,
       Supplier<Double> xaxisSpeedSupplier,
-      Supplier<Double> zaxisRotateSupplier) {
+      Supplier<Double> zaxisRotateSupplier, double speed) {
     m_drivetrain = drivetrain;
     m_xaxisSpeedSupplier = xaxisSpeedSupplier;
     m_zaxisRotateSupplier = zaxisRotateSupplier;
+    this.speed = speed;
     addRequirements(drivetrain);
   }
 
@@ -38,7 +40,8 @@ public class ArcadeDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_drivetrain.arcadeDriveKinematics(m_xaxisSpeedSupplier.get()*0.5, m_zaxisRotateSupplier.get()*0.5);
+    m_drivetrain.arcadeDriveKinematics(m_xaxisSpeedSupplier.get()*speed, m_zaxisRotateSupplier.get()*speed);
+    System.out.println(speed);
   }
 
   // Called once the command ends or is interrupted.

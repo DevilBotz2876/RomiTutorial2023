@@ -27,6 +27,8 @@ import frc.robot.commands.AutonomousDistance;
 import frc.robot.commands.AutonomousTime;
 import frc.robot.commands.DriveSpeedCommand;
 import frc.robot.commands.DriveSwitchCommand;
+import frc.robot.commands.PushCommand;
+import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.OnBoardIO;
 import frc.robot.subsystems.OnBoardIO.ChannelMode;
@@ -41,10 +43,12 @@ import frc.robot.subsystems.drive.DriveIORomi;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final Drivetrain m_drivetrain = new Drivetrain(new DriveIORomi());
+  private final Arm m_arm = new Arm(); 
   private final OnBoardIO m_onboardIO = new OnBoardIO(ChannelMode.INPUT, ChannelMode.INPUT);
 
   // Assumes a XBox controller plugged into channnel 0
   private final CommandXboxController m_controller = new CommandXboxController(0);
+  private DriveSpeedCommand driveSpeedCommand = new DriveSpeedCommand();
 
   // Create SmartDashboard chooser for autonomous routines
   private final SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -63,7 +67,7 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
      // Configure the button bindings
-    m_drivetrain.setDefaultCommand(new ArcadeDrive(m_drivetrain, () -> -m_controller.getLeftY(), () -> m_controller.getLeftX()));
+    m_drivetrain.setDefaultCommand(new ArcadeDrive(m_drivetrain, () -> -m_controller.getLeftY(), () -> m_controller.getLeftX(), 1));
     configureButtonBindings();
   }
 
@@ -74,8 +78,10 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    m_controller.povUp().onTrue(new DriveSwitchCommand(m_drivetrain, m_controller));
-    m_controller.povDown().onTrue(new DriveSpeedCommand(m_drivetrain));
+    m_controller.povUp().onTrue(new DriveSwitchCommand(m_drivetrain, m_controller, driveSpeedCommand));
+    m_controller.povDown().onTrue(driveSpeedCommand);
+    m_controller.rightTrigger().onTrue(new PushCommand(1/3, m_arm));
+    m_controller.rightTrigger().onFalse(new PushCommand(0, m_arm));
     // Default command is arcade drive. This will run unless another command
     // is scheduled over it.
     m_drivetrain.setDefaultCommand(getArcadeDriveCommand());
@@ -130,6 +136,6 @@ public class RobotContainer {
    */
   public Command getArcadeDriveCommand() {
     return new ArcadeDrive(
-        m_drivetrain, () -> -m_controller.getLeftY(), () -> -m_controller.getLeftX());
+        m_drivetrain, () -> -m_controller.getLeftY(), () -> -m_controller.getLeftX(), 1);
   }
 }
