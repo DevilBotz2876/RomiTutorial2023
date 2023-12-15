@@ -40,7 +40,7 @@ public class ArcadeDrive extends CommandBase {
   @Override
   public void execute() {
     
-    double zSpeed = MathUtil.clamp(m_zaxisRotateSupplier.get(), -0.8, 0.8);
+    double zSpeed = MathUtil.clamp(m_zaxisRotateSupplier.get(), -0.7, 0.7);
     m_drivetrain.arcadeDriveKinematics(m_xaxisSpeedSupplier.get(), zSpeed);
   }
 
