@@ -21,7 +21,7 @@ public class ArmCommand extends CommandBase {
   // to prevent stick drift, this value sets the min absolute value the speed needs to be
   // before we assume it is not zero
   private final double m_speedScale =
-      16; // to reduce stick sensitivity, this value indicates how much to scale the returned speed
+      32; // to reduce stick sensitivity, this value indicates how much to scale the returned speed
   // by
   private final double m_minBaseRange = 0; // min range for the arm's base
   private final double m_maxBaseRange = 1; // max range for the arm's base
