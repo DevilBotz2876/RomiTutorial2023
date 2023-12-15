@@ -15,23 +15,14 @@ public class DriveSpeedCommand extends InstantCommand {
     
       if (toggleState) {
         // Switch to TankDrive
-        speed = 0.75;
+        speed = 1;
       } else {
         // Switch to ArcadeDrive
-        speed = 0.5;
+        speed = 0.75;
       }
       System.out.println(speed);
     }  
 
-    public void updateSpeed() {
-      if (toggleState) {
-        // Switch to TankDrive
-        speed = 0.75;
-      } else {
-        // Switch to ArcadeDrive
-        speed = 0.5;
-      }
-  }
 
     public double getSpeed() {
       return speed;

@@ -28,6 +28,7 @@ import frc.robot.commands.AutonomousTime;
 import frc.robot.commands.DriveSpeedCommand;
 import frc.robot.commands.DriveSwitchCommand;
 import frc.robot.commands.PushCommand;
+import frc.robot.commands.setDefaultArmCommand;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.OnBoardIO;
@@ -68,6 +69,7 @@ public class RobotContainer {
   public RobotContainer() {
      // Configure the button bindings
     m_drivetrain.setDefaultCommand(new ArcadeDrive(m_drivetrain, () -> -m_controller.getLeftY(), () -> m_controller.getLeftX(), 1));
+    m_arm.setDefaultCommand(new PushCommand(m_arm, () -> m_controller.getRightX()));
     configureButtonBindings();
   }
 
@@ -80,8 +82,7 @@ public class RobotContainer {
   private void configureButtonBindings() {
     m_controller.povUp().onTrue(new DriveSwitchCommand(m_drivetrain, m_controller, driveSpeedCommand));
     m_controller.povDown().onTrue(driveSpeedCommand);
-    m_controller.rightTrigger().onTrue(new PushCommand(1/3, m_arm));
-    m_controller.rightTrigger().onFalse(new PushCommand(0, m_arm));
+    //m_controller.rightTrigger().onFalse(new PushCommand(m_arm, 0));
     // Default command is arcade drive. This will run unless another command
     // is scheduled over it.
     m_drivetrain.setDefaultCommand(getArcadeDriveCommand());
