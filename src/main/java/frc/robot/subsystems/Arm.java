@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -27,7 +28,9 @@ public class Arm extends SubsystemBase {
     // within the entire range (e.g. due to physical constraints), we could clamp the position to
     // the min/max values before setting the servo's position
     //System.out.println(position);
+    position = MathUtil.clamp(position, 0, 0.43);
     m_armBaseServo.set(position);
+    
   }
 
   /**
@@ -40,7 +43,7 @@ public class Arm extends SubsystemBase {
   }
 
   public void closeGripper() {
-    m_armElbowServo.set(0.18);
+    m_armElbowServo.set(0.50);
   }
   public void openGripper() {
       m_armElbowServo.set(1);  
