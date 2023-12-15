@@ -4,9 +4,9 @@
 
 package frc.robot;
 
-import com.pathplanner.lib.PathConstraints;
-import com.pathplanner.lib.PathPlanner;
-import com.pathplanner.lib.PathPlannerTrajectory;
+//import com.pathplanner.lib.PathConstraints;
+//import com.pathplanner.lib.PathPlanner;
+//import com.pathplanner.lib.PathPlannerTrajectory;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -16,12 +16,14 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.Constants.SysId;
+//import frc.robot.Constants.SysId;
 import frc.robot.commands.ArcadeDrive;
-import frc.robot.commands.AutonomousDistanceCenter;
-import frc.robot.commands.AutonomousDistanceRightSide;
-
- import frc.robot.commands.ArmCommand;
+import frc.robot.commands.AutonomousBlueDistanceCenter;
+import frc.robot.commands.AutonomousBlueDistanceRightSide;
+import frc.robot.commands.AutonomousDistanceCenterFast;
+import frc.robot.commands.AutonomousRedDistanceCenter;
+import frc.robot.commands.AutonomousRedDistanceRightSide;
+import frc.robot.commands.ArmCommand;
 
  import frc.robot.commands.DriveVision;
 import frc.robot.subsystems.Arm;
@@ -86,17 +88,21 @@ public class RobotContainer {
         .onFalse(new PrintCommand("Button A Released"));
 
     // Setup SmartDashboard options
-    m_chooser.setDefaultOption("Auto Routine Distance Center", new AutonomousDistanceCenter(m_drivetrain));
-    m_chooser.addOption("Auto Routine Right Side", new AutonomousDistanceRightSide(m_drivetrain));
+    m_chooser.setDefaultOption("Auto Routine Distance Center Fast", new AutonomousDistanceCenterFast(m_drivetrain));
+    m_chooser.addOption("Auto Routine Blue Side Distance Center", new AutonomousBlueDistanceCenter(m_drivetrain));
+    m_chooser.addOption("Auto Routine Blue Side Right Side", new AutonomousBlueDistanceRightSide(m_drivetrain));
+    m_chooser.addOption("Auto Routine Red Side Distance Center", new AutonomousRedDistanceCenter(m_drivetrain));
+    m_chooser.addOption("Auto Routine Red Side Right Side", new AutonomousRedDistanceRightSide(m_drivetrain));
+
 
     // START: Setup pathplanner
-    PathPlannerTrajectory traj =
-        PathPlanner.loadPath(
-            "Test Path",
-            new PathConstraints(
-                SysId.Drive.maxSpeedMetersPerSecond, SysId.Drive.maxSpeedMetersPerSecond / 2));
-    m_chooser.addOption(
-        "Auto Routine Test Path", m_drivetrain.followTrajectoryCommand(traj, true, false));
+    //PathPlannerTrajectory traj =
+      //  PathPlanner.loadPath(
+        //    "Test Path",
+          //  new PathConstraints(
+            //    SysId.Drive.maxSpeedMetersPerSecond, SysId.Drive.maxSpeedMetersPerSecond / 2));
+    //m_chooser.addOption(
+      //  "Auto Routine Test Path", m_drivetrain.followTrajectoryCommand(traj, true, false));
     // END: Setup pathplanner
 
     SmartDashboard.putData(m_chooser);
