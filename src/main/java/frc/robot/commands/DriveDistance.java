@@ -30,7 +30,7 @@ public class DriveDistance extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_drive.arcadeDrive(0, 0);
+    m_drive.arcadeDrive(1, 0);
     m_drive.resetEncoders();
   }
 

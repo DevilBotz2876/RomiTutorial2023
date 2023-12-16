@@ -1,9 +1,7 @@
 // Copyright (c) FIRST and other WPILib contributors.
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
-
 package frc.robot;
-
 import com.pathplanner.lib.PathConstraints;
 import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPlannerTrajectory;
@@ -26,7 +24,6 @@ import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.OnBoardIO;
 import frc.robot.subsystems.OnBoardIO.ChannelMode;
 import frc.robot.subsystems.drive.DriveIORomi;
-
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -44,10 +41,8 @@ public class RobotContainer {
 
   // Assumes a XBox controller plugged into channnel 0
   private final XboxController m_controller = new XboxController(0);
-
   // Create SmartDashboard chooser for autonomous routines
   private final SendableChooser<Command> m_chooser = new SendableChooser<>();
-
   // NOTE: The I/O pin functionality of the 5 exposed I/O pins depends on the hardware "overlay"
   // that is specified when launching the wpilib-ws server on the Romi raspberry pi.
   // By default, the following are available (listed in order from inside of the board to outside):
@@ -58,13 +53,11 @@ public class RobotContainer {
   // - PWM 3 (mapped to Arduino Pin 22)
   //
   // Your subsystem configuration should take the overlays into account
-
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
   }
-
   /**
    * Use this method to define your button->command mappings. Buttons can be created by
    * instantiating a {@link GenericHID} or one of its subclasses ({@link
@@ -75,17 +68,14 @@ public class RobotContainer {
     // Default command is arcade drive. This will run unless another command
     // is scheduled over it.
     m_drivetrain.setDefaultCommand(getArcadeDriveCommand());
-
     // Example of how to use the onboard IO
     Trigger onboardButtonA = new Trigger(m_onboardIO::getButtonAPressed);
     onboardButtonA
         .onTrue(new PrintCommand("Button A Pressed"))
         .onFalse(new PrintCommand("Button A Released"));
-
     // Setup SmartDashboard options
     m_chooser.setDefaultOption("Auto Routine Distance", new AutonomousDistance(m_drivetrain));
     m_chooser.addOption("Auto Routine Time", new AutonomousTime(m_drivetrain));
-
     // START: Setup pathplanner
     PathPlannerTrajectory traj =
         PathPlanner.loadPath(
@@ -95,9 +85,7 @@ public class RobotContainer {
     m_chooser.addOption(
         "Auto Routine Test Path", m_drivetrain.followTrajectoryCommand(traj, true, false));
     // END: Setup pathplanner
-
     SmartDashboard.putData(m_chooser);
-
     // START: Setup photonvision
     Trigger xButton = new JoystickButton(m_controller, XboxController.Button.kX.value);
     xButton.whileTrue(new DriveVision(m_drivetrain));
@@ -105,9 +93,8 @@ public class RobotContainer {
 
     // START: Setup arm
     // Use the controller's right stick's forward/back (Y-axis) to control the arm base speed
-    // In this case, we want "forward" = "arm up" = positive value, but forward is reported as a
-    // negative value from
-    // the controller's stick, so we negate the returned value.
+    // In this case, we want "forward" = "arm up", but forward is reported as a negative value from
+    // the stick, so we negate the returned value.
     m_arm.setDefaultCommand(new ArmCommand(m_arm, () -> -m_controller.getRightY()));
     // END: Setup arm
   }
@@ -120,7 +107,6 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     return m_chooser.getSelected();
   }
-
   /**
    * Use this to pass the teleop command to the main {@link Robot} class.
    *
