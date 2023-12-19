@@ -13,9 +13,9 @@ public class AutoRed1 extends SequentialCommandGroup {
      */
     public AutoRed1(Drivetrain drivetrain) {
       addCommands(
-          new DriveDistance(-1, 7.65, drivetrain),
+          new DriveDistance(-5, 9, drivetrain),
           new DriveDistance(0.5, 0.5, drivetrain),
           new TurnDegrees(0.4, 80, drivetrain),
-          new DriveDistance(-0.5, 6, drivetrain));
+          new DriveDistance(-0.5, 5.5, drivetrain));
     }
   }

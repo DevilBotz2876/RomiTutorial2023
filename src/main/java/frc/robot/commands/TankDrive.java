@@ -41,7 +41,7 @@ public class TankDrive extends CommandBase {
   @Override
   public void execute() {
     m_drivetrain.tankDriveKinematics(m_xaxisSpeedSupplier.get()*speed, m_zaxisRotateSupplier.get()*speed);
-    System.out.println(speed);
+    
     }
 
   // Called once the command ends or is interrupted.

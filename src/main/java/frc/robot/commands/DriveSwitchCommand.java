@@ -36,7 +36,7 @@ public class DriveSwitchCommand extends InstantCommand {
         );
         System.out.println("arcade");
       }
-      System.out.println(speed);
+      
     }
 
   }

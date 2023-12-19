@@ -1,13 +1,15 @@
 {
   "HALProvider": {
     "Other Devices": {
-      "RomiGyro": {
+      "BuiltInAccel": {
         "header": {
           "open": true
         }
       },
-      "window": {
-        "visible": false
+      "RomiGyro": {
+        "header": {
+          "open": true
+        }
       }
     }
   },
