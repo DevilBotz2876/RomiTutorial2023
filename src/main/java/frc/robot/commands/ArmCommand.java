@@ -1,9 +1,11 @@
 package frc.robot.commands;
 
+import java.util.function.DoubleSupplier;
+
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Arm;
-import java.util.function.DoubleSupplier;
 
 public class ArmCommand extends CommandBase {
   // the arm subsystem used by this comment
@@ -13,7 +15,7 @@ public class ArmCommand extends CommandBase {
   private final DoubleSupplier m_baseSpeed;
 
   // default start position for the arm when the command is first scheduled
-  private final double m_defaultPosition = 0.5;
+  private final double m_defaultPosition = 0.2;
 
   private final double m_deadband =
       0.05; // to prevent stick drift, this value sets the min absolute value the speed needs to be
@@ -21,10 +23,10 @@ public class ArmCommand extends CommandBase {
   // to prevent stick drift, this value sets the min absolute value the speed needs to be
   // before we assume it is not zero
   private final double m_speedScale =
-      16; // to reduce stick sensitivity, this value indicates how much to scale the returned speed
+      64; // to reduce stick sensitivity, this value indicates how much to scale the returned speed
   // by
-  private final double m_minBaseRange = 0; // min range for the arm's base
-  private final double m_maxBaseRange = 1; // max range for the arm's base
+  private final double m_minBaseRange = 0.2; // min range for the arm's base
+  private final double m_maxBaseRange = 0.525; // max range for the arm's base
 
   public ArmCommand(Arm arm, DoubleSupplier baseSpeed) {
     m_arm = arm;
@@ -58,5 +60,8 @@ public class ArmCommand extends CommandBase {
 
     // Finally, set the arm base positon to the new calculated arm position.
     m_arm.setArmBasePosition(newArmPosition);
+
+    SmartDashboard.putNumber("Arm Position", m_arm.getArmBasePosition());
+    SmartDashboard.putNumber("New Arm Position", newArmPosition);
   }
 }

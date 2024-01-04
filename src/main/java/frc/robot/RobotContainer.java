@@ -21,8 +21,10 @@ import frc.robot.commands.ArmCommand;
 import frc.robot.commands.AutonomousDistance;
 import frc.robot.commands.AutonomousTime;
 import frc.robot.commands.DriveVision;
+import frc.robot.commands.GripperCommand;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Gripper;
 import frc.robot.subsystems.OnBoardIO;
 import frc.robot.subsystems.OnBoardIO.ChannelMode;
 import frc.robot.subsystems.drive.DriveIORomi;
@@ -41,6 +43,7 @@ public class RobotContainer {
   // Create an arm sub-system
   private final Arm m_arm = new Arm();
   // END: Setup arm
+  private final Gripper m_gripper = new Gripper();
 
   // Assumes a XBox controller plugged into channnel 0
   private final XboxController m_controller = new XboxController(0);
@@ -108,8 +111,9 @@ public class RobotContainer {
     // In this case, we want "forward" = "arm up" = positive value, but forward is reported as a
     // negative value from
     // the controller's stick, so we negate the returned value.
-    m_arm.setDefaultCommand(new ArmCommand(m_arm, () -> -m_controller.getRightY()));
+    m_arm.setDefaultCommand(new ArmCommand(m_arm, () -> m_controller.getRightY()));
     // END: Setup arm
+    m_gripper.setDefaultCommand(new GripperCommand(m_gripper, () -> m_controller.getRightX()));
   }
 
   /**
